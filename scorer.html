@@ -71,7 +71,7 @@ const state = { factors: {}, bonuses: {}, penalties: {} };
 
 // raw-fact inputs that go into the snippet
 const FACT_FIELDS = [
-  ['name', 'Name', 'text', ''], ['addr', 'Area / size', 'text', ''],
+  ['name', 'Name', 'text', ''], ['url', 'Listing URL', 'text', ''], ['addr', 'Area / size', 'text', ''],
   ['type', 'Type / yr', 'text', ''], ['headline', 'Headline €', 'number', ''],
   ['tenure', 'Tenure', 'select', ['own', 'hallinnanjako', 'leased']],
   ['lease_end', 'Lease end (if leased)', 'number', ''],
@@ -152,6 +152,7 @@ function buildSnippet() {
   const tenure = g('tenure').value;
   const obj = {
     id, score: +r.total.toFixed(1), name,
+    url: g('url').value || null,
     addr: g('addr').value, type: g('type').value,
     headline: +g('headline').value || 0,
     tenure, lease_end: tenure === 'leased' ? (+g('lease_end').value || null) : null,

@@ -126,7 +126,7 @@ function render() {
     const leased = p.tenure === 'leased';
     return `
     <div class="card${p.lead ? ' lead' : ''}">
-      <h2>${p.name}${p.badge ? `<span class="badge">${p.badge}</span>` : ''}</h2>
+      <h2>${p.url ? `<a href="${p.url}" target="_blank" rel="noopener">${p.name}</a>` : p.name}${p.badge ? `<span class="badge">${p.badge}</span>` : ''}</h2>
       <div class="meta">${p.type} · ${p.tenure === 'leased' ? 'leased land →' + p.lease_end : 'own land'}</div>
       <div class="rows">
         <div class="r"><span class="k">Purchase + transfer tax</span><span class="v">${eur(p.headline + r.tax)}</span></div>

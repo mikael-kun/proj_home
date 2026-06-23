@@ -61,6 +61,7 @@ On GitHub Pages:
 
 | field | effect |
 |---|---|
+| `url` | optional Oikotie link; shown in the shortlist row + drawer and on the financing card |
 | `headline`, `ground_rent_yr`, `reno_share`, `extra_works` | → `trueCost` |
 | `tenure`, `lease_end` | leased → ground-rent capitalised + collateral haircut |
 | `tax_basis` (`shares` / `property`), `tax_override` | → `transferTax` |

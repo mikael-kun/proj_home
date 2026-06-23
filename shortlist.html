@@ -34,6 +34,8 @@
   td{padding:9px 11px;vertical-align:top}
   .pname{font-weight:650;display:block;letter-spacing:-.01em}
   .paddr{color:var(--muted);font-size:11px}
+  .ext{font-size:11px;font-weight:600;color:var(--sea);margin-left:6px;white-space:nowrap}
+  .drawer .listing{margin:9px 0 0}
   .nw{display:inline-block;font-size:9px;font-weight:700;color:#fff;background:var(--moss);border-radius:3px;padding:0 4px;margin-left:5px;vertical-align:1px}
   .score{display:flex;align-items:center;gap:8px;min-width:88px}
   .score b{font-size:14px;font-variant-numeric:tabular-nums;width:26px}
@@ -110,7 +112,7 @@ function render() {
     tr.innerHTML =
       '<td class="col-prop"><div class="pname">#' + d.rank + '</div></td>' +
       '<td><div class="score"><b class="mono">' + d.score.toFixed(1) + '</b><div class="meter"><i style="width:' + (d.score * 10) + '%"></i></div></div></td>' +
-      '<td><span class="pname">' + d.name + (d.nw ? '<span class="nw">NEW</span>' : '') + '</span><span class="paddr">' + d.addr + '</span></td>' +
+      '<td><span class="pname">' + d.name + (d.nw ? '<span class="nw">NEW</span>' : '') + (d.url ? ' <a class="ext" href="' + d.url + '" target="_blank" rel="noopener">↗ listing</a>' : '') + '</span><span class="paddr">' + d.addr + '</span></td>' +
       '<td>' + d.type + '</td>' +
       '<td class="mono">' + fmtK(d.headline) + '</td>' +
       '<td class="mono">' + trueTxt + (d._true > d.headline ? '<span class="tc"> ▲</span>' : '') + '</td>' +
@@ -125,8 +127,10 @@ function render() {
     const det = document.createElement('tr');
     det.className = 'detail';
     det.innerHTML = '<td colspan="14"><div class="drawer"><div class="gate"><h4>The gate</h4>' +
-      d.gate + '</div><h4>Flags</h4><ul>' + d.flags.map(f => '<li>' + f + '</li>').join('') + '</ul></div></td>';
-    tr.addEventListener('click', () => det.classList.toggle('open'));
+      d.gate + '</div><h4>Flags</h4><ul>' + d.flags.map(f => '<li>' + f + '</li>').join('') + '</ul>' +
+      (d.url ? '<div class="listing"><a class="ext" href="' + d.url + '" target="_blank" rel="noopener">↗ View listing on Oikotie</a></div>' : '') +
+      '</div></td>';
+    tr.addEventListener('click', (e) => { if (e.target.closest('a')) return; det.classList.toggle('open'); });
     tb.appendChild(tr); tb.appendChild(det);
   });
 }
@@ -161,7 +165,7 @@ document.getElementById('pivots').innerHTML = pivotIds.map((id, i) => {
 const off = data.properties.filter(p => p.school_status === 'off').map(p => p.name).join(', ');
 document.getElementById('foot').innerHTML =
   '<b>Off-anchor (GATE).</b> ' + off + ' break Lumi\u2019s catchment. In the scorer these cap at ' +
-  data.rubric.school_veto_cap.toFixed(1) + '; here their holistic scores are shown as recorded.<br>' +
+  A.school_veto_cap.toFixed(1) + '; here their holistic scores are shown as recorded.<br>' +
   '<b>True cost.</b> Ground rent is capitalised only where paid directly to the city (kiinteist\u00f6 on leased land); where it sits inside an As Oy vastike it is a running cost, not capitalised. Cap rate ' +
   (A.cap_rate * 100).toFixed(1) + '% — change it once in data.json and every row updates.';
 
