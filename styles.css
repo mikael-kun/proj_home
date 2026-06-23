@@ -1,0 +1,40 @@
+/* styles.css — shared tokens + components for the whole toolset.
+   One palette, defined once; the three tools cannot drift visually. */
+:root{
+  --paper:#EEF1F2; --panel:#F8FAFA; --ink:#16242E; --muted:#5C6B73;
+  --sea:#2B6E7C; --sea-deep:#1F525C; --rust:#A8543A; --moss:#4F7A52;
+  --sand:#B98A3E; --line:#D3D9DB; --line-soft:#E3E8E9;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45;
+  padding:clamp(14px,3vw,40px)}
+.wrap{max-width:1180px;margin:0 auto}
+.wrap.narrow{max-width:760px}
+.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sea);font-weight:700;margin:0 0 6px}
+h1{font-size:clamp(21px,4vw,30px);margin:0 0 6px;letter-spacing:-.01em;font-weight:680}
+.sub{color:var(--muted);margin:0 0 22px;font-size:13.5px;max-width:72ch}
+.sub b{color:var(--ink);font-weight:650}
+.mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+a{color:var(--sea);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* top nav shared across tools */
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+.nav a{font-size:13px;font-weight:600;color:var(--muted);border:1px solid var(--line);
+  background:var(--panel);border-radius:7px;padding:7px 13px}
+.nav a:hover{border-color:var(--sea);color:var(--sea);text-decoration:none}
+.nav a.on{background:var(--sea-deep);color:#fff;border-color:var(--sea-deep)}
+
+.chip{display:inline-block;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.c-moss{background:#E4EEE4;color:#33572f}.c-sand{background:#F4E9D2;color:#7d5a1c}
+.c-rust{background:#F1E0D9;color:#8a3c22}.c-sea{background:#DBEBED;color:#1f525c}.c-grey{background:#E5EAEB;color:#48555c}
+
+.badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:#fff;background:var(--sea);border-radius:20px;padding:2px 8px;margin-left:6px;vertical-align:1px}
+.gateflag{display:inline-block;font-size:9px;font-weight:700;color:#fff;background:var(--rust);
+  border-radius:3px;padding:0 5px;margin-left:6px;vertical-align:1px;letter-spacing:.04em}
+
+footer{margin:18px 2px 0;font-size:11px;color:var(--muted);line-height:1.6}
+footer b{color:var(--ink)}

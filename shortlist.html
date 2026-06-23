@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shortlist — eastern Helsinki</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .pivots{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:0 0 22px}
+  .pivot{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--sea);border-radius:8px;padding:12px 14px}
+  .pivot.top{border-left-color:var(--rust)}
+  .pivot h3{margin:0 0 3px;font-size:13px}
+  .pivot p{margin:0;font-size:12.5px;color:var(--muted)}
+  .pivot .q{color:var(--rust);font-weight:650}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 14px;font-size:11.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .d-moss{background:var(--moss)}.d-sand{background:var(--sand)}.d-rust{background:var(--rust)}
+  .scrollnote{font-size:11px;color:var(--muted);margin:0 0 6px;font-style:italic}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+  table{border-collapse:collapse;width:100%;min-width:980px;font-size:13px}
+  thead th{position:sticky;top:0;background:var(--sea-deep);color:#fff;text-align:left;font-weight:600;font-size:11px;letter-spacing:.04em;padding:10px 11px;cursor:pointer;white-space:nowrap;user-select:none}
+  thead th:hover{background:var(--sea)}
+  thead th .arr{opacity:.45;font-size:9px;margin-left:3px}
+  thead th.active .arr{opacity:1}
+  th.col-prop,td.col-prop{position:sticky;left:0;z-index:2}
+  thead th.col-prop{z-index:3}
+  td.col-prop{background:var(--panel)}
+  tbody tr:nth-child(4n-1) td.col-prop{background:#F1F5F5}
+  tbody tr{border-top:1px solid var(--line-soft);cursor:pointer}
+  tbody tr:nth-child(4n-1){background:#F1F5F5}
+  tbody tr:hover{background:#E9F0F1}
+  tbody tr:hover td.col-prop{background:#E9F0F1}
+  td{padding:9px 11px;vertical-align:top}
+  .pname{font-weight:650;display:block;letter-spacing:-.01em}
+  .paddr{color:var(--muted);font-size:11px}
+  .nw{display:inline-block;font-size:9px;font-weight:700;color:#fff;background:var(--moss);border-radius:3px;padding:0 4px;margin-left:5px;vertical-align:1px}
+  .score{display:flex;align-items:center;gap:8px;min-width:88px}
+  .score b{font-size:14px;font-variant-numeric:tabular-nums;width:26px}
+  .meter{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+  .meter i{display:block;height:100%;background:var(--sea);border-radius:3px}
+  .tc{font-size:11px;color:var(--muted)}
+  tr.detail td{background:#F4F7F7;padding:0;border-top:none}
+  .drawer{padding:13px 16px;font-size:12.5px;display:none}
+  tr.detail.open .drawer{display:block}
+  .drawer h4{margin:0 0 4px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--sea)}
+  .drawer .gate{background:#fff;border:1px solid var(--line);border-left:3px solid var(--rust);border-radius:6px;padding:9px 11px;margin:0 0 9px}
+  .drawer ul{margin:4px 0 0;padding-left:18px}
+  .drawer li{margin:2px 0;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Move-up search · 10–20 yr hold</p>
+  <h1>Family home shortlist</h1>
+  <nav class="nav"><a href="index.html">Overview</a><a class="on" href="shortlist.html">Shortlist</a><a href="scorer.html">Scorer</a><a href="financing.html">Financing</a></nav>
+  <p class="sub">Scored against the framework: own land, low renovation risk (work <b>behind</b>, not ahead), governance, school catchment as primary; water a preference. <b>True cost</b> is derived (headline + capitalised direct-pay ground rent + unpriced reno share) — never hand-typed. Off-anchor properties carry a <span class="gateflag">GATE</span> flag. Scores are provisional (▲). <b>Tap a row</b> for the gate; <b>tap a header</b> to sort.</p>
+
+  <div class="pivots" id="pivots"></div>
+
+  <div class="legend">
+    <span><i class="dot d-moss"></i> favourable</span><span><i class="dot d-sand"></i> caution / conditional</span><span><i class="dot d-rust"></i> against framework</span><span>True cost = headline + capitalised ground rent + reno backlog</span>
+  </div>
+
+  <p class="scrollnote">↔ scroll sideways · property column fixed</p>
+  <div class="tablewrap"><table id="t"><thead><tr>
+    <th class="col-prop" data-k="rank" data-num="1">#<span class="arr">▲</span></th>
+    <th data-k="score" data-num="1" class="active">Score<span class="arr">▼</span></th>
+    <th data-k="name">Property<span class="arr">▲</span></th>
+    <th data-k="type">Type / yr<span class="arr">▲</span></th>
+    <th data-k="headline" data-num="1">Headline<span class="arr">▲</span></th>
+    <th data-k="_true" data-num="1">True cost<span class="arr">▲</span></th>
+    <th data-k="_tax" data-num="1">Transfer tax<span class="arr">▲</span></th>
+    <th data-k="_land">Land<span class="arr">▲</span></th>
+    <th data-k="_reno">Reno<span class="arr">▲</span></th>
+    <th data-k="_vent">Vent.<span class="arr">▲</span></th>
+    <th data-k="_gov">Governance<span class="arr">▲</span></th>
+    <th data-k="_water">Water<span class="arr">▲</span></th>
+    <th data-k="school_label">School / area<span class="arr">▲</span></th>
+    <th data-k="wc">WCs<span class="arr">▲</span></th>
+  </tr></thead><tbody id="tb"></tbody></table></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script type="module">
+import { loadData, trueCost, transferTax, eur, fmtK } from './lib.js';
+
+const data = await loadData();
+const A = data.assumptions;
+const DATA = data.properties.map(p => ({
+  ...p,
+  _true: trueCost(p, A),
+  _tax: transferTax(p, A),
+  _land: p.chips.land[0], _reno: p.chips.reno[0], _vent: p.chips.vent[0],
+  _gov: p.chips.gov[0], _water: p.chips.water[0]
+}));
+
+const tb = document.getElementById('tb');
+let sortKey = 'score', sortDir = -1;
+const chip = (t, c) => '<span class="chip c-' + c + '">' + t + '</span>';
+
+function render() {
+  tb.innerHTML = '';
+  DATA.forEach(d => {
+    const off = d.school_status === 'off';
+    const trueTxt = d._true > d.headline
+      ? eur(d._true) : eur(d.headline);
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="col-prop"><div class="pname">#' + d.rank + '</div></td>' +
+      '<td><div class="score"><b class="mono">' + d.score.toFixed(1) + '</b><div class="meter"><i style="width:' + (d.score * 10) + '%"></i></div></div></td>' +
+      '<td><span class="pname">' + d.name + (d.nw ? '<span class="nw">NEW</span>' : '') + '</span><span class="paddr">' + d.addr + '</span></td>' +
+      '<td>' + d.type + '</td>' +
+      '<td class="mono">' + fmtK(d.headline) + '</td>' +
+      '<td class="mono">' + trueTxt + (d._true > d.headline ? '<span class="tc"> ▲</span>' : '') + '</td>' +
+      '<td class="mono">' + eur(d._tax) + '</td>' +
+      '<td>' + chip(d.chips.land[0], d.chips.land[1]) + '</td>' +
+      '<td>' + chip(d.chips.reno[0], d.chips.reno[1]) + '</td>' +
+      '<td>' + chip(d.chips.vent[0], d.chips.vent[1]) + '</td>' +
+      '<td>' + chip(d.chips.gov[0], d.chips.gov[1]) + '</td>' +
+      '<td>' + chip(d.chips.water[0], d.chips.water[1]) + '</td>' +
+      '<td>' + d.school_label + (off ? '<span class="gateflag">GATE</span>' : '') + '</td>' +
+      '<td>' + chip(d.wc, d.wc === '2+' ? 'moss' : 'grey') + '</td>';
+    const det = document.createElement('tr');
+    det.className = 'detail';
+    det.innerHTML = '<td colspan="14"><div class="drawer"><div class="gate"><h4>The gate</h4>' +
+      d.gate + '</div><h4>Flags</h4><ul>' + d.flags.map(f => '<li>' + f + '</li>').join('') + '</ul></div></td>';
+    tr.addEventListener('click', () => det.classList.toggle('open'));
+    tb.appendChild(tr); tb.appendChild(det);
+  });
+}
+function sortBy(key, num) {
+  if (sortKey === key) sortDir *= -1; else { sortKey = key; sortDir = num ? -1 : 1; }
+  DATA.sort((a, b) => {
+    let va = a[key], vb = b[key];
+    if (num) return (va - vb) * sortDir;
+    return String(va).localeCompare(String(vb)) * sortDir;
+  });
+  document.querySelectorAll('thead th').forEach(th => {
+    th.classList.toggle('active', th.dataset.k === key);
+    const ar = th.querySelector('.arr');
+    if (ar) ar.textContent = th.dataset.k === key ? (sortDir < 0 ? '▼' : '▲') : '▲';
+  });
+  render();
+}
+document.querySelectorAll('thead th').forEach(th =>
+  th.addEventListener('click', () => sortBy(th.dataset.k, th.dataset.num === '1')));
+
+// deciding-unknown pivots
+const pivotIds = ['stromsintie-23a', 'linnalahdentie-12', 'paasitie-15a'];
+document.getElementById('pivots').innerHTML = pivotIds.map((id, i) => {
+  const p = data.properties.find(x => x.id === id);
+  const q = { 'stromsintie-23a': 'Takkahuone wall opening: clean, or moisture/rot in the 1989 frame?',
+              'linnalahdentie-12': 'Leased to 2055; the city will renew. At what rent — how big is the reset?',
+              'paasitie-15a': 'Reno not yet jyvitetty. Per-apartment share on top of €510k?' }[id];
+  return '<div class="pivot' + (i === 0 ? ' top' : '') + '"><h3>Deciding unknown — ' + p.name +
+    '</h3><p><span class="q">' + q + '</span></p></div>';
+}).join('');
+
+const off = data.properties.filter(p => p.school_status === 'off').map(p => p.name).join(', ');
+document.getElementById('foot').innerHTML =
+  '<b>Off-anchor (GATE).</b> ' + off + ' break Lumi\u2019s catchment. In the scorer these cap at ' +
+  A.school_veto_cap.toFixed(1) + '; here their holistic scores are shown as recorded.<br>' +
+  '<b>True cost.</b> Ground rent is capitalised only where paid directly to the city (kiinteist\u00f6 on leased land); where it sits inside an As Oy vastike it is a running cost, not capitalised. Cap rate ' +
+  (A.cap_rate * 100).toFixed(1) + '% — change it once in data.json and every row updates.';
+
+render();
+</script>
+</body>
+</html>

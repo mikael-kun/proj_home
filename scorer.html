@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scorer — eastern Helsinki</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .dash{position:sticky;top:0;z-index:5;background:var(--sea-deep);color:#fff;border-radius:12px;padding:14px 18px;margin:0 0 14px;display:flex;align-items:center;gap:16px;box-shadow:0 2px 14px rgba(31,82,92,.18)}
+  .dash .num{font-size:40px;font-weight:680;line-height:1;letter-spacing:-.02em}
+  .dash .num small{font-size:16px;opacity:.6;font-weight:500}
+  .dash .right{flex:1}
+  .dash .band{font-size:13px;font-weight:650;margin:0 0 6px}
+  .dash .band .veto{background:var(--rust);border-radius:4px;padding:1px 7px;font-size:11px;margin-left:6px;text-transform:uppercase;letter-spacing:.04em}
+  .bar{height:8px;background:rgba(255,255,255,.18);border-radius:5px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:#fff;border-radius:5px;transition:width .35s cubic-bezier(.22,.61,.36,1)}
+  .reset{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:7px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .reset:hover{background:rgba(255,255,255,.22)}
+  .facts{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 14px;margin:0 0 11px;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .facts label{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 4px}
+  .facts input,.facts select{width:100%;font-size:13px;font-family:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
+  .factor{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 14px 14px;margin:0 0 11px}
+  .fhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 9px}
+  .fhead .name{font-weight:650;font-size:14px}
+  .fhead .cap{font-size:11px;color:var(--muted)}
+  .fhead .got{font-size:13px;font-weight:650;color:var(--sea);font-variant-numeric:tabular-nums}
+  .opts{display:flex;flex-direction:column;gap:6px}
+  .opt{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 11px;cursor:pointer;font-size:13px}
+  .opt:hover{border-color:var(--sea)}
+  .opt .pts{font-size:12px;font-weight:650;color:var(--muted);font-variant-numeric:tabular-nums}
+  .opt[aria-pressed="true"]{background:#E4EEE4;border-color:var(--moss)}
+  .opt[aria-pressed="true"] .pts{color:var(--moss)}
+  .factor.school .opt[data-veto="1"][aria-pressed="true"]{background:#F1E0D9;border-color:var(--rust)}
+  .pen .opt[aria-pressed="true"]{background:#F1E0D9;border-color:var(--rust)}
+  .pen .opt[aria-pressed="true"] .pts{color:var(--rust)}
+  .bon .opt[aria-pressed="true"]{background:#E4EEE4;border-color:var(--moss)}
+  .snip{background:var(--ink);color:#dfe7e8;border-radius:10px;padding:14px;margin:14px 0 0;font-family:ui-monospace,monospace;font-size:11.5px;white-space:pre;overflow-x:auto}
+  .copy{background:var(--sea);color:#fff;border:0;border-radius:7px;padding:9px 14px;font-size:13px;font-weight:600;cursor:pointer;margin:10px 0 0}
+  .copy:hover{background:var(--sea-deep)}
+</style>
+</head>
+<body>
+<div class="wrap narrow">
+  <p class="eyebrow">Quality score · 0–10</p>
+  <h1>Property scorer</h1>
+  <nav class="nav"><a href="index.html">Overview</a><a href="shortlist.html">Shortlist</a><a class="on" href="scorer.html">Scorer</a><a href="financing.html">Financing</a></nav>
+  <p class="sub">Tap one option per factor; toggle bonuses and penalties. <b>School is a hard gate</b> — off-anchor caps the score. When you're done, copy the data.json snippet at the bottom straight into your repo.</p>
+
+  <div class="dash">
+    <div class="num"><span id="total">0.0</span><small>/10</small></div>
+    <div class="right">
+      <div class="band" id="band">Start scoring…</div>
+      <div class="bar"><i id="barfill"></i></div>
+    </div>
+    <button class="reset" id="reset">Reset</button>
+  </div>
+
+  <div class="facts" id="facts"></div>
+  <div id="factors"></div>
+
+  <button class="copy" id="copy">Copy data.json snippet</button>
+  <div class="snip" id="snip"></div>
+</div>
+
+<script type="module">
+import { loadData, scoreTotal } from './lib.js';
+
+const data = await loadData();
+const R = data.rubric;
+const state = { factors: {}, bonuses: {}, penalties: {} };
+
+// raw-fact inputs that go into the snippet
+const FACT_FIELDS = [
+  ['name', 'Name', 'text', ''], ['addr', 'Area / size', 'text', ''],
+  ['type', 'Type / yr', 'text', ''], ['headline', 'Headline €', 'number', ''],
+  ['tenure', 'Tenure', 'select', ['own', 'hallinnanjako', 'leased']],
+  ['lease_end', 'Lease end (if leased)', 'number', ''],
+  ['ground_rent_yr', 'Ground rent €/yr (direct-pay only)', 'number', ''],
+  ['reno_share', 'Unpriced reno share €', 'number', ''],
+  ['tax_basis', 'Transfer tax basis', 'select', ['shares', 'property']]
+];
+const facts = document.getElementById('facts');
+FACT_FIELDS.forEach(([k, label, type, def]) => {
+  const w = document.createElement('div');
+  let field;
+  if (type === 'select') field = '<select id="f_' + k + '">' + def.map(o => '<option>' + o + '</option>').join('') + '</select>';
+  else field = '<input id="f_' + k + '" type="' + type + '">';
+  w.innerHTML = '<label>' + label + '</label>' + field;
+  facts.appendChild(w);
+});
+facts.addEventListener('input', buildSnippet);
+
+const host = document.getElementById('factors');
+R.factors.forEach(f => {
+  const box = document.createElement('div');
+  box.className = 'factor' + (f.key === 'school' ? ' school' : '');
+  box.innerHTML = '<div class="fhead"><span class="name">' + f.name + '</span><span class="cap">' + f.cap + '</span><span class="got mono" data-got="' + f.key + '">–</span></div>';
+  const opts = document.createElement('div'); opts.className = 'opts';
+  f.opts.forEach((o, i) => {
+    const isVeto = f.key === 'school' && o[1] === 0;
+    const b = document.createElement('button');
+    b.className = 'opt'; b.setAttribute('aria-pressed', 'false');
+    if (isVeto) b.dataset.veto = '1';
+    b.innerHTML = '<span>' + o[0] + '</span><span class="pts mono">' + o[1].toFixed(2) + '</span>';
+    b.addEventListener('click', () => {
+      state.factors[f.key] = o[1];
+      opts.querySelectorAll('.opt').forEach((x, j) => x.setAttribute('aria-pressed', j === i ? 'true' : 'false'));
+      document.querySelector('[data-got="' + f.key + '"]').textContent = '+' + o[1].toFixed(2);
+      recompute();
+    });
+    opts.appendChild(b);
+  });
+  box.appendChild(opts); host.appendChild(box);
+});
+
+function toggleGroup(arr, cls, store) {
+  const box = document.createElement('div'); box.className = 'factor ' + cls;
+  box.innerHTML = '<div class="fhead"><span class="name">' + (cls === 'bon' ? 'Bonuses' : 'Penalties') + '</span><span class="cap">toggle any that apply</span></div>';
+  const opts = document.createElement('div'); opts.className = 'opts';
+  arr.forEach(p => {
+    const b = document.createElement('button'); b.className = 'opt'; b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = '<span>' + p.name + '<br><span style="font-size:11px;opacity:.7">' + p.cap + '</span></span><span class="pts mono">' + (p.pts > 0 ? '+' : '') + p.pts.toFixed(2) + '</span>';
+    b.addEventListener('click', () => {
+      if (store[p.key]) delete store[p.key]; else store[p.key] = p.pts;
+      b.setAttribute('aria-pressed', store[p.key] ? 'true' : 'false');
+      recompute();
+    });
+    opts.appendChild(b);
+  });
+  box.appendChild(opts); host.appendChild(box);
+}
+toggleGroup(R.bonuses, 'bon', state.bonuses);
+toggleGroup(R.penalties, 'pen', state.penalties);
+
+function recompute() {
+  const r = scoreTotal(state.factors, Object.values(state.bonuses), Object.values(state.penalties), R);
+  document.getElementById('total').textContent = r.total.toFixed(1);
+  document.getElementById('barfill').style.width = (r.total * 10) + '%';
+  const band = document.getElementById('band');
+  const anyset = Object.keys(state.factors).length > 0;
+  if (!anyset) { band.textContent = 'Start scoring…'; buildSnippet(); return; }
+  let label = r.total >= 8 ? 'Top tier' : r.total >= 7 ? 'Strong candidate' : r.total >= 6 ? 'Conditional — depends on the gate' : 'A project or a compromise';
+  band.innerHTML = label + (r.gated ? '<span class="veto">school veto</span>' : '');
+  buildSnippet();
+}
+
+function buildSnippet() {
+  const r = scoreTotal(state.factors, Object.values(state.bonuses), Object.values(state.penalties), R);
+  const g = id => document.getElementById('f_' + id);
+  const name = g('name').value || 'New property';
+  const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'new-property';
+  const tenure = g('tenure').value;
+  const obj = {
+    id, score: +r.total.toFixed(1), name,
+    addr: g('addr').value, type: g('type').value,
+    headline: +g('headline').value || 0,
+    tenure, lease_end: tenure === 'leased' ? (+g('lease_end').value || null) : null,
+    ground_rent_yr: +g('ground_rent_yr').value || 0,
+    reno_share: +g('reno_share').value || 0, extra_works: 0,
+    tax_basis: g('tax_basis').value,
+    school_status: state.factors.school === 0 ? 'off' : 'in',
+    school_label: '', gate: '', flags: []
+  };
+  const penalties = Object.keys(state.penalties);
+  if (penalties.includes('hitas')) obj.hitas = true;
+  if (penalties.includes('roof')) obj.roof_flat_felt = true;
+  if (penalties.includes('unpriced')) obj.reno_unpriced = true;
+  document.getElementById('snip').textContent = JSON.stringify(obj, null, 2) + ',';
+}
+
+document.getElementById('copy').addEventListener('click', () => {
+  navigator.clipboard.writeText(document.getElementById('snip').textContent);
+  const b = document.getElementById('copy'); b.textContent = 'Copied — paste into data.json';
+  setTimeout(() => b.textContent = 'Copy data.json snippet', 1600);
+});
+document.getElementById('reset').addEventListener('click', () => {
+  state.factors = {}; state.bonuses = {}; state.penalties = {};
+  document.querySelectorAll('.opt').forEach(x => x.setAttribute('aria-pressed', 'false'));
+  document.querySelectorAll('[data-got]').forEach(x => x.textContent = '–');
+  document.querySelectorAll('.facts input, .facts select').forEach(x => { if (x.type !== 'select-one') x.value = ''; });
+  recompute();
+});
+recompute();
+</script>
+</body>
+</html>

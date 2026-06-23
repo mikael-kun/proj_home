@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financing — top candidates</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .controls{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin:0 0 14px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+  .ctl label{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 6px}
+  .ctl input[type=number]{width:100%;font-size:15px;font-family:ui-monospace,monospace;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
+  .ctl .rowflex{display:flex;align-items:center;gap:8px}
+  .rate-val{font-size:15px;font-family:ui-monospace,monospace;min-width:48px}
+  input[type=range]{width:100%;accent-color:var(--sea)}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .seg button{border:0;background:#fff;color:var(--muted);font-size:13px;font-weight:600;padding:7px 12px;cursor:pointer}
+  .seg button.on{background:var(--sea);color:#fff}
+  .preset{display:flex;gap:6px;margin-top:7px}
+  .preset button{flex:1;border:1px solid var(--line);background:#fff;color:var(--sea);font-size:11px;font-weight:700;padding:5px;border-radius:5px;cursor:pointer}
+  .assump{font-size:11px;color:var(--muted)}
+  .cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:0 0 18px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .card.lead{border:1.5px solid var(--sea)}
+  .card h2{margin:0;font-size:15px;padding:13px 16px 4px}
+  .card .meta{font-size:11.5px;color:var(--muted);padding:0 16px 12px;border-bottom:1px solid var(--line-soft)}
+  .rows{padding:10px 16px 14px}
+  .r{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;font-size:13px;border-bottom:1px dotted var(--line-soft)}
+  .r:last-child{border-bottom:0}
+  .r .k{color:var(--muted)}
+  .r .v{font-family:ui-monospace,monospace;font-variant-numeric:tabular-nums;font-weight:600}
+  .r.big .v{font-size:17px;color:var(--sea-deep)}
+  .r.big .k{color:var(--ink);font-weight:650}
+  .r .v.warn{color:var(--rust)}.r .v.ok{color:var(--moss)}
+  .pct{font-size:11px;color:var(--muted);font-weight:500;margin-left:5px}
+  .barwrap{margin:3px 0 0}
+  .bar2{height:7px;background:var(--line);border-radius:4px;overflow:hidden;position:relative}
+  .bar2 i{display:block;height:100%;border-radius:4px;background:var(--sea)}
+  .bar2 i.over{background:var(--rust)}
+  .threshold{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);opacity:.55}
+  .note{font-size:11.5px;color:var(--muted);padding:9px 16px 14px;background:#F4F7F7;border-top:1px solid var(--line-soft)}
+  .note.tim{border-top:0}
+  .tag{display:inline-block;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-right:5px}
+  .tag.good{background:#E4EEE4;color:#33572f}.tag.warn{background:#F4E9D2;color:#7d5a1c}
+  .sens{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:12.5px}
+  .sens h3{margin:0 0 8px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--sea)}
+  .sens table{border-collapse:collapse;width:100%;font-size:12.5px}
+  .sens td,.sens th{text-align:right;padding:4px 8px;border-bottom:1px solid var(--line-soft)}
+  .sens th:first-child,.sens td:first-child{text-align:left}
+  .sens .mono{font-family:ui-monospace,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Two-track move · financing comparison</p>
+  <h1>Top candidates, run through the model</h1>
+  <nav class="nav"><a href="index.html">Overview</a><a href="shortlist.html">Shortlist</a><a href="scorer.html">Scorer</a><a class="on" href="financing.html">Financing</a></nav>
+  <p class="sub">Each rolls your current-apartment negative equity into a new mortgage and leans on parental collateral above 85% LTV. <b>Bridge / double-carry is now a line item</b> — a now-available purchase carries months of two housing costs; a 2027-completion build doesn't. Leased-land collateral is haircut. Adjust the assumptions; the ranking shifts when you stress the rate.</p>
+
+  <div class="controls">
+    <div class="ctl"><label>Interest rate (all-in)</label>
+      <div class="rowflex"><input type="range" id="rate" min="1" max="7" step="0.1" value="3.0"><span class="rate-val mono" id="rateVal">3.0%</span></div>
+      <div class="preset"><button id="b3">Base 3.0%</button><button id="b6">Stress 6.0%</button></div>
+    </div>
+    <div class="ctl"><label>Loan term</label>
+      <div class="seg" id="termSeg"><button data-t="25">25 yr</button><button data-t="30" class="on">30 yr</button></div>
+    </div>
+    <div class="ctl"><label>Current flat — net sale (€)</label>
+      <input type="number" id="sale" step="1000">
+      <div class="assump">less 3.5% selling cost; mortgage to clear €227,469</div>
+    </div>
+    <div class="ctl"><label>Combined net income / mo (€)</label>
+      <input type="number" id="income" step="100">
+      <div class="assump">sets the 40%-of-net prudence line</div>
+    </div>
+  </div>
+
+  <div id="negEq" class="assump" style="margin:0 0 14px"></div>
+  <div class="cards" id="cards"></div>
+  <div class="sens" id="sens"></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script type="module">
+import { loadData, annuity, transferTax, collateralGap, collateralValue, bridgeCost, eur } from './lib.js';
+
+const data = await loadData();
+const A = data.assumptions;
+const PROPS = data.properties.filter(p => p.financing);
+
+const el = id => document.getElementById(id);
+let term = 30;
+el('sale').value = A.default_sale_price;
+el('income').value = A.default_income_net_mo;
+
+function negEquity(sale) { return A.old_mortgage - sale * (1 - A.sell_cost); }
+
+function rowFor(p, rate, negEq, income) {
+  const tax = transferTax(p, A);
+  const loan = p.headline + tax + negEq;          // ground rent is a running cost, not financed
+  const m = annuity(loan, rate, term);
+  const total = m + (p.running_mo || 0);
+  const gap = collateralGap(p, loan, A);
+  const ltv = loan / p.headline * 100;
+  const bridge = bridgeCost(p, A);
+  return { p, tax, loan, m, total, gap, ltv, bridge, grossNeed: loan / 5 };
+}
+
+function render() {
+  const rate = +el('rate').value; el('rateVal').textContent = rate.toFixed(1) + '%';
+  const sale = +el('sale').value || 0;
+  const income = +el('income').value || 1;
+  const negEq = negEquity(sale);
+
+  el('negEq').innerHTML = negEq >= 0
+    ? 'Rolled-in negative equity at this sale price: <b class="mono">' + eur(negEq) + '</b> (net ' + eur(sale * (1 - A.sell_cost)) + ' against the €227,469 mortgage). This single number moves the cards more than the rate slider does in the realistic band — see the strip below.'
+    : 'Positive equity carried forward as deposit: <b class="mono">' + eur(-negEq) + '</b>.';
+
+  const rows = PROPS.map(p => rowFor(p, rate, negEq, income));
+  const maxTotal = Math.max(...rows.map(r => r.total), income * 0.4) * 1.05;
+  const maxGap = Math.max(...rows.map(r => r.gap), 1) * 1.05;
+  const threshPos = Math.min(100, (income * 0.4) / maxTotal * 100);
+
+  el('cards').innerHTML = rows.map(r => {
+    const p = r.p, pct = r.total / income * 100, over = pct > 40;
+    const leased = p.tenure === 'leased';
+    return `
+    <div class="card${p.lead ? ' lead' : ''}">
+      <h2>${p.name}${p.badge ? `<span class="badge">${p.badge}</span>` : ''}</h2>
+      <div class="meta">${p.type} · ${p.tenure === 'leased' ? 'leased land →' + p.lease_end : 'own land'}</div>
+      <div class="rows">
+        <div class="r"><span class="k">Purchase + transfer tax</span><span class="v">${eur(p.headline + r.tax)}</span></div>
+        <div class="r"><span class="k">+ rolled-in neg. equity</span><span class="v">${eur(negEq)}</span></div>
+        <div class="r big"><span class="k">New mortgage</span><span class="v">${eur(r.loan)}</span></div>
+        <div class="r"><span class="k">LTV vs price</span><span class="v ${r.ltv > 110 ? 'warn' : ''}">${r.ltv.toFixed(0)}%</span></div>
+        <div class="r"><span class="k">Mortgage / mo</span><span class="v">${eur(r.m)}</span></div>
+        <div class="r"><span class="k">+ running (est.)</span><span class="v">${eur(p.running_mo)}</span></div>
+        <div class="r big"><span class="k">Total housing / mo</span><span class="v ${over ? 'warn' : 'ok'}">${eur(r.total)}<span class="pct">${pct.toFixed(0)}% net</span></span></div>
+        <div class="barwrap"><div class="bar2"><i class="${over ? 'over' : ''}" style="width:${Math.min(100, r.total / maxTotal * 100)}%"></i><span class="threshold" style="left:${threshPos}%"></span></div></div>
+        <div class="r" style="margin-top:8px"><span class="k">Bridge / double-carry${r.bridge ? '' : ' — none'}</span><span class="v ${r.bridge ? 'warn' : 'ok'}">${r.bridge ? eur(r.bridge) : '€0'}</span></div>
+        <div class="r"><span class="k">Parental collateral gap${leased ? ' (leased haircut)' : ''}</span><span class="v ${r.gap > 150000 ? 'warn' : ''}">${eur(r.gap)}</span></div>
+        <div class="barwrap"><div class="bar2"><i style="width:${Math.min(100, r.gap / maxGap * 100)}%;background:var(--sand)"></i></div></div>
+        <div class="r" style="margin-top:8px"><span class="k">Gross income, &lt;500% rule (this loan only)</span><span class="v">${eur(r.grossNeed)}/yr</span></div>
+      </div>
+      <div class="note">${p.run_note}</div>
+      <div class="note tim"><span class="tag ${p.timingClass || (p.available === 'now' ? 'warn' : 'good')}">${p.available === 'now' ? 'Timing' : 'Timing ✓'}</span>${p.timing}</div>
+    </div>`;
+  }).join('');
+
+  // negative-equity sensitivity strip — total housing/mo at three sale prices
+  const salePoints = [165000, 175000, 190000];
+  el('sens').innerHTML = '<h3>Negative-equity sensitivity — total housing / mo at ' + rate.toFixed(1) + '%, ' + term + ' yr</h3>' +
+    '<table><thead><tr><th>Sale price →</th>' + salePoints.map(s => '<th class="mono">' + eur(s) + '</th>').join('') + '</tr></thead><tbody>' +
+    PROPS.map(p => {
+      return '<tr><td>' + p.name + '</td>' + salePoints.map(s => {
+        const r = rowFor(p, rate, negEquity(s), income);
+        return '<td class="mono">' + eur(r.total) + '</td>';
+      }).join('') + '</tr>';
+    }).join('') + '</tbody></table>';
+}
+
+el('termSeg').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  term = +b.dataset.t;
+  [...el('termSeg').children].forEach(x => x.classList.toggle('on', x === b));
+  render();
+});
+['rate', 'sale', 'income'].forEach(id => el(id).addEventListener('input', render));
+el('b3').addEventListener('click', () => { el('rate').value = 3.0; render(); });
+el('b6').addEventListener('click', () => { el('rate').value = 6.0; render(); });
+
+el('foot').innerHTML =
+  '<b>How the loan is built.</b> New mortgage = headline + transfer tax + rolled-in negative equity (no cash deposit; investments held as reserve). Transfer tax is derived per property: 1.5% on As Oy shares, 3% on a building/plot held directly.<br>' +
+  '<b>Bridge / double-carry.</b> Estimated as ' + A.bridge_months + ' months × ' + eur(A.bridge_carry_mo) + '/mo of carrying two housing costs while a now-available purchase waits for your 2027 sale. A 2027-completion build carries none — that is the real edge of its timing fit, now in euros rather than a label.<br>' +
+  '<b>Collateral.</b> Leased-land pledge value is haircut to ' + (A.leased_collateral_haircut * 100).toFixed(0) + '% (banks lend less against a building on land they don\u2019t own), so the gap reflects the warning the old model only stated in prose.<br>' +
+  '<b>Not financial advice.</b> Modelled estimates from listing data and your framework; running and bridge figures are flagged estimates. Confirm rate, margin, collateral terms and your exact figures with Nordea before acting.';
+
+render();
+</script>
+</body>
+</html>
