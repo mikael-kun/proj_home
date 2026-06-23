@@ -79,7 +79,7 @@
       "gate": "Turnkey new-build (A reserved). Zero renovation risk, A-energy, HRV, heat pump, own land, school 150 m. Off-plan: permit ~Sept 2026, completion ~Sept 2027, you sign as rakennuttaja under RYS-9. Delivery risk replaces renovation risk \u2014 and the timing lines up with your 2027 sale.",
       "flags": ["A2018, HRV, air-water heat pump, pitched metal roof", "Own land via hallinnanjakosopimus (3 houses)", "Transfer tax 3% on \u20ac200k plot only (~\u20ac6k)", "Not yet built/permitted \u2014 contract & completion are the gate"] },
 
-    { "id": "paasitie-15a", "url": null, "rank": 5, "score": 7.5, "name": "Paasitie 15 A", "addr": "Tammisalo \u00b7 132 m\u00b2", "type": "Rivitalo 1978", "year": 1978, "size_m2": 132,
+    { "id": "paasitie-15a", "url": "https://asunnot.oikotie.fi/myytavat-asunnot/helsinki/24527462", "rank": 5, "score": 7.5, "name": "Paasitie 15 A", "addr": "Tammisalo \u00b7 132 m\u00b2", "type": "Rivitalo 1978", "year": 1978, "size_m2": 132,
       "headline": 510000, "tenure": "own", "lease_end": null, "ground_rent_yr": 0, "reno_share": 60000, "extra_works": 0, "tax_basis": "shares", "roof_flat_felt": true, "reno_unpriced": true, "nw": false, "wc": "?", "ensuite": "?",
       "chips": { "land": ["Own", "moss"], "reno": ["Behind*", "moss"], "vent": ["Exhaust", "sand"], "gov": ["Pro (32u)", "sea"], "water": ["Own shore", "moss"] },
       "school_label": "Tammisalo", "school_status": "in",

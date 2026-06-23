@@ -165,7 +165,7 @@ document.getElementById('pivots').innerHTML = pivotIds.map((id, i) => {
 const off = data.properties.filter(p => p.school_status === 'off').map(p => p.name).join(', ');
 document.getElementById('foot').innerHTML =
   '<b>Off-anchor (GATE).</b> ' + off + ' break Lumi\u2019s catchment. In the scorer these cap at ' +
-  A.school_veto_cap.toFixed(1) + '; here their holistic scores are shown as recorded.<br>' +
+  data.rubric.school_veto_cap.toFixed(1) + '; here their holistic scores are shown as recorded.<br>' +
   '<b>True cost.</b> Ground rent is capitalised only where paid directly to the city (kiinteist\u00f6 on leased land); where it sits inside an As Oy vastike it is a running cost, not capitalised. Cap rate ' +
   (A.cap_rate * 100).toFixed(1) + '% — change it once in data.json and every row updates.';
 
