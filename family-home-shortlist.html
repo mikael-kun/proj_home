@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family home shortlist — eastern Helsinki</title>
+<style>
+  :root{--paper:#EEF1F2;--panel:#F8FAFA;--ink:#16242E;--muted:#5C6B73;--sea:#2B6E7C;--sea-deep:#1F525C;--rust:#A8543A;--moss:#4F7A52;--sand:#B98A3E;--line:#D3D9DB;--line-soft:#E3E8E9;}
+  *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45;padding:clamp(14px,3vw,40px)}
+  .wrap{max-width:1300px;margin:0 auto}
+  .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sea);font-weight:700;margin:0 0 6px}
+  h1{font-size:clamp(22px,4vw,32px);margin:0 0 6px;letter-spacing:-.01em;font-weight:680}
+  .sub{color:var(--muted);margin:0 0 22px;font-size:14px;max-width:72ch}
+  .sub b{color:var(--ink);font-weight:650}
+  .pivots{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:0 0 22px}
+  .pivot{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--sea);border-radius:8px;padding:12px 14px}
+  .pivot.top{border-left-color:var(--rust)}
+  .pivot h3{margin:0 0 3px;font-size:13px;letter-spacing:.01em}
+  .pivot p{margin:0;font-size:12.5px;color:var(--muted)}
+  .pivot .q{color:var(--rust);font-weight:650}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 14px;font-size:11.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .d-moss{background:var(--moss)}.d-sand{background:var(--sand)}.d-rust{background:var(--rust)}
+  .scrollnote{font-size:11px;color:var(--muted);margin:0 0 6px;font-style:italic}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+  table{border-collapse:collapse;width:100%;min-width:900px;font-size:13px}
+  thead th{position:sticky;top:0;background:var(--sea-deep);color:#fff;text-align:left;font-weight:600;font-size:11px;letter-spacing:.04em;padding:10px 11px;cursor:pointer;white-space:nowrap;user-select:none;border-bottom:2px solid var(--sea-deep)}
+  thead th:hover{background:var(--sea)}
+  thead th .arr{opacity:.45;font-size:9px;margin-left:3px}
+  thead th.active .arr{opacity:1}
+  th.col-prop,td.col-prop{position:sticky;left:0;z-index:2}
+  thead th.col-prop{z-index:3}
+  td.col-prop{background:var(--panel)}
+  tbody tr:nth-child(4n-1) td.col-prop{background:#F1F5F5}
+  tbody tr{border-top:1px solid var(--line-soft);cursor:pointer}
+  tbody tr:nth-child(4n-1){background:#F1F5F5}
+  tbody tr:hover{background:#E9F0F1}
+  tbody tr:hover td.col-prop{background:#E9F0F1}
+  td{padding:9px 11px;vertical-align:top}
+  .pname{font-weight:650;display:block;letter-spacing:-.01em}
+  .paddr{color:var(--muted);font-size:11px}
+  .mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+  .nw{display:inline-block;font-size:9px;font-weight:700;color:#fff;background:var(--moss);border-radius:3px;padding:0 4px;margin-left:5px;vertical-align:1px}
+  .score{display:flex;align-items:center;gap:8px;min-width:88px}
+  .score b{font-size:14px;font-variant-numeric:tabular-nums;width:26px}
+  .meter{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+  .meter i{display:block;height:100%;background:var(--sea);border-radius:3px}
+  .chip{display:inline-block;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+  .c-moss{background:#E4EEE4;color:#33572f}.c-sand{background:#F4E9D2;color:#7d5a1c}
+  .c-rust{background:#F1E0D9;color:#8a3c22}.c-sea{background:#DBEBED;color:#1f525c}.c-grey{background:#E5EAEB;color:#48555c}
+  tr.detail td{background:#F4F7F7;padding:0;border-top:none}
+  .drawer{padding:13px 16px;font-size:12.5px;display:none}
+  tr.detail.open .drawer{display:block}
+  .drawer h4{margin:0 0 4px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--sea)}
+  .drawer .gate{background:#fff;border:1px solid var(--line);border-left:3px solid var(--rust);border-radius:6px;padding:9px 11px;margin:0 0 9px}
+  .drawer ul{margin:4px 0 0;padding-left:18px}
+  .drawer li{margin:2px 0;color:var(--muted)}
+  .drawer li b{color:var(--ink);font-weight:600}
+  footer{margin:18px 2px 0;font-size:11px;color:var(--muted);line-height:1.6}
+  footer b{color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Move-up search · 10–20 yr hold</p>
+  <h1>Family home shortlist — eastern Helsinki</h1>
+  <p class="sub">Twenty-five candidates scored against the framework: own land, low renovation risk (work <b>behind</b>, not ahead), governance, school catchment as primary; water a preference; <b>two or more WCs +0.3 and an en-suite master +0.2</b> now feed the points model. The full batch is folded in — <b>twelve new (green tag)</b>. Scores provisional (▲). <b>Tap a row</b> for the gate; <b>tap a header</b> to sort.</p>
+
+  <div class="pivots">
+    <div class="pivot top"><h3>Deciding unknown — Strömsintie 23 A</h3><p>Your top candidate. <span class="q">Takkahuone wall opening: clean, or moisture/rot in the 1989 frame?</span></p></div>
+    <div class="pivot"><h3>Deciding unknown — Linnalahdentie 12</h3><p>Leased to 2055; the city will renew. <span class="q">At what rent — how big is the reset?</span></p></div>
+    <div class="pivot"><h3>Deciding unknown — Paasitie 15 A</h3><p>Reno not yet jyvitetty. <span class="q">Per-apartment share on top of €510k?</span></p></div>
+  </div>
+
+  <div class="legend">
+    <span><i class="dot d-moss"></i> favourable</span><span><i class="dot d-sand"></i> caution / conditional</span><span><i class="dot d-rust"></i> against framework</span><span>HITAS = price-capped resale · True cost = headline + capitalised ground rent or + renovation backlog</span>
+  </div>
+
+  <p class="scrollnote">↔ scroll sideways · property column fixed</p>
+  <div class="tablewrap"><table id="t"><thead><tr>
+    <th class="col-prop" data-k="rank" data-num="1">#<span class="arr">▲</span></th>
+    <th data-k="score" data-num="1" class="active">Score<span class="arr">▼</span></th>
+    <th data-k="prop">Property<span class="arr">▲</span></th>
+    <th data-k="type">Type / yr<span class="arr">▲</span></th>
+    <th data-k="price" data-num="1">Headline<span class="arr">▲</span></th>
+    <th data-k="truenum" data-num="1">True cost<span class="arr">▲</span></th>
+    <th data-k="land">Land<span class="arr">▲</span></th>
+    <th data-k="reno">Reno<span class="arr">▲</span></th>
+    <th data-k="vent">Vent.<span class="arr">▲</span></th>
+    <th data-k="gov">Governance<span class="arr">▲</span></th>
+    <th data-k="water">Water<span class="arr">▲</span></th>
+    <th data-k="school">School / area<span class="arr">▲</span></th>
+    <th data-k="wc">WCs<span class="arr">▲</span></th>
+    <th data-k="ensuite">En-suite<span class="arr">▲</span></th>
+  </tr></thead><tbody id="tb"></tbody></table></div>
+
+  <footer>
+    <b>New this round (2).</b> <b>Varjakanvalkama 16</b> (Vartiokylä) joins the 7.5 cluster — in-area, own land, big flexible family layout, tile roof, low vastike; electric heat is the main knock. <b>Harbonkatu 7 C</b> (Ramsinranta) is the best-watered house here but sits in Vuosaari, off your school anchor, at the highest €/m² in the set.<br><b>True cost.</b> As Oy leased-land rents (Hallainvuorentie, Myllyväenkatu 10 J/12 G) sit in the vastike. Watch the high vastikkeet (Virvatulentie €1,193/mo). Transfer tax: 1.5% on As Oy shares, 3% on kiinteistö (Kiviportintie, Humikkalantie).<br><b>WCs / En-suite.</b> Filled only where the listing confirmed it (this session’s pulls); “?” means not yet captured — ask at the viewing or I can re-pull that listing. No property so far confirms an en-suite master — a good question to carry into every showing.
+  </footer>
+</div>
+
+<script>
+const DATA=[
+ {rank:1,score:8.0,prop:"Strömsintie 23 A",addr:"Marjaniemi · 139 m²",type:"Paritalo 1989",ty:1989,price:488000,truenum:488000,truetxt:"~488k",land:"Own",landc:"moss",reno:"Behind",renoc:"moss",vent:"Exhaust",ventc:"sand",gov:"Pro (7u)",govc:"sea",water:"Walk",waterc:"grey",school:"Marjaniemi ✓",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Highest-scored and closest to the ideal profile — own land, two-storey zone separation, roof done, professional mgmt, walk-to-beach, school confirmed. Pivotal unknown: the takkahuone wall rakenneavaus. Clean → strong buy; moisture/rot in the 1989 frame → reprice or walk.",
+  flags:["Own land; 7-unit company, professional management","Two-storey, bedrooms both floors — the layout you want","Roof done; €3,511/m² fair vs Marjaniemi comps","Electric heating; 1989 wood frame"]},
+ {rank:2,score:7.8,prop:"Linnalahdentie 12",addr:"Vartioharju · 157 m²",type:"OKT 1995",ty:1995,price:597000,truenum:654000,truetxt:"~654k",land:"Leased→2055",landc:"sand",reno:"Behind",renoc:"moss",vent:"HRV",ventc:"moss",gov:"Freehold",govc:"sea",water:"Near",waterc:"grey",school:"Sought district",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Lease runs to 2055 (~29 yr). Helsinki renews residential ground leases as a matter of course — so this isn't renewal risk. The open question is the rent reset at 2055 (priced off plot value × the city's return rate, estimable now) and how a sub-20-yr remaining term reads to a buyer if you sell near the end of your hold. Ground rent €1,986/yr → ~€57k capitalised.",
+  flags:["HRV ventilation; extensively renovated 2018–26; move-in ready","Verified-measured 2020; kuntotarkastus 3/2026","Small 475 m² plot; C energy"]},
+ {rank:3,score:7.8,prop:"Kiviportintie 26",addr:"Vartiokylä · 124 m²",type:"OKT 2023",ty:2023,price:595000,truenum:595000,truetxt:"~595k",land:"Own",landc:"moss",reno:"Behind",renoc:"moss",vent:"HRV",ventc:"moss",gov:"Freehold",govc:"sea",water:"No",waterc:"grey",school:"0.4 km",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Near-new (2023) on own land with geothermal + HRV and a 0.4 km walk to both Vartiokylä ala-aste and Botby — top-tier on systems and school with effectively zero renovation risk. Catch: a hallinnanjakosopimus shares the plot and entry drive with one neighbour. Verify those terms and any remaining build warranty.",
+  flags:["2023 build; maalämpö + floor heating; HRV; B energy","Own land via hallinnanjakosopimus (shared driveway, 1 neighbour)","Two-storey, 3 beds up + work room down — zone separation","High €/m² (~€4,800); 3% transfer tax (kiinteistö)"]},
+ {rank:4,score:7.5,prop:"Ison-Antintie 17 B",addr:"Marjaniemi · 129 m²",type:"New-build 2027",ty:2027,price:618000,truenum:624000,truetxt:"~624k",land:"Own",landc:"moss",reno:"None",renoc:"moss",vent:"HRV",ventc:"moss",gov:"Freehold",govc:"sea",water:"Walk",waterc:"grey",school:"150 m",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Turnkey new-build (A reserved). Zero renovation risk, A-energy, HRV, heat pump, own land, school 150 m. Off-plan: permit ~Sept 2026, completion ~Sept 2027, you sign as rakennuttaja under RYS-9. Delivery risk replaces renovation risk — and the timing lines up with your 2027 sale.",
+  flags:["A2018, HRV, air-water heat pump, pitched metal roof","Own land via hallinnanjakosopimus (3 houses)","Transfer tax 3% on €200k plot only (~€6k)","Not yet built/permitted — contract & completion are the gate"]},
+ {rank:5,score:7.5,prop:"Paasitie 15 A",addr:"Tammisalo · 132 m²",type:"Rivitalo 1978",ty:1978,price:510000,truenum:570000,truetxt:"510k + share",land:"Own",landc:"moss",reno:"Behind*",renoc:"moss",vent:"Exhaust",ventc:"sand",gov:"Pro (32u)",govc:"sea",water:"Own shore",waterc:"moss",school:"Tammisalo",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Linjasaneeraus + maalämpö just completed, cost NOT yet jyvitetty. €510k excludes it — a 132 m² share of a full pipe+geothermal job could be €60–120k+. This one number decides it.",
+  flags:["Private water — own shore, boat slips, beach (a bonus, not a gate)","Own land; maalämpö; Fluxio / Toivo Tapaila managing","Flat felt roof on 1978 stock — your penalty","Exhaust-only vent; upstairs WC not renovated"]},
+ {rank:6,score:7.5,prop:"Orvokkitie 5 b",addr:"Vartiokylä · 140 m²",type:"OKT 1958",ty:1958,price:485000,truenum:485000,truetxt:"~485k",land:"Own (freehold)",landc:"moss",reno:"Behind",renoc:"moss",vent:"Gravity",ventc:"sand",gov:"Freehold",govc:"sea",water:"No",waterc:"grey",school:"0.6 km",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Strongest freehold all-rounder, but a hallinnanjakosopimus (2010) shares the plot with a second house. Confirm the agreement terms and SR-3 restrictions.",
+  flags:["Major works done 2024 (roof, windows, pipes); IVLP 2026","Freehold; school 0.6 km, metro 0.6 km","Gravity vent; SR-3 protection","Heating pipes original; asbestos survey needed"]},
+ {rank:7,score:7.5,prop:"Varjakanvalkama 16",addr:"Vartiokylä · 157 m²",type:"Rivitalo 2002",ty:2002,price:635000,truenum:635000,truetxt:"~635k",land:"Own",landc:"moss",reno:"Behind",renoc:"moss",vent:"Mech",ventc:"sand",gov:"Self (9u)",govc:"sand",water:"Walk",waterc:"grey",school:"Vartiokylä",eastern:1,nw:1,wc:"2+",ensuite:"?",
+  gate:"Strong in-area family house — Vartiokylä, own land, 157 m² over three levels with genuine zone separation (master down, beds up, family room), a durable tile roof, a sensible €448/mo vastike, and the marina + swimming beach a short walk away. The drags: electric heating (17,000 kWh/yr) with no energy certificate issued yet (likely D/E), a 9-unit resident-run company, €4,045/m², and the garage is a separate €20k share. Own land leaves the door open to retrofit ground-source later.",
+  flags:["Vartiokylä; own land; 157 m², 3-level, master down + beds up — real zone separation","Tile pitched roof; low €448/mo vastike; walkable marina + beach","Electric heat 17,000 kWh/yr; no energy certificate yet (pending); mech vent, HRV unconfirmed","9-unit resident-run management; garage a separate €20k share; €4,045/m²"]},
+ {rank:8,score:7.5,prop:"Myllyväenkatu 1",addr:"Puu-Myllypuro · 126 m²",type:"Paritalo 2016",ty:2016,price:414000,truenum:414000,truetxt:"~414k",land:"Leased→2070",landc:"sand",reno:"Behind",renoc:"moss",vent:"Mech",ventc:"sea",gov:"Pro",govc:"sea",water:"No",waterc:"grey",school:"0.9 km",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Modern, low-risk, professionally managed, cheapest of the strong group. Leased to 2070; ground rent is in the €803/mo vastike, so headline ≈ true cost.",
+  flags:["2016, hyvä, B energy, district + floor heating","Pro management; school 0.9 km","Leased but resale fine to ~2050","Shared yhteistila obligation"]},
+ {rank:9,score:7.5,prop:"Valssimyllynkatu 19 G 2",addr:"Myllypuro · 122 m²",type:"New-build 2023/24",ty:2023,price:554040,truenum:554040,truetxt:"~554k",land:"Own",landc:"moss",reno:"Behind",renoc:"moss",vent:"HRV",ventc:"moss",gov:"Pro (16u)",govc:"sea",water:"No",waterc:"grey",school:"0.8 km",eastern:1,nw:0,wc:"2+",ensuite:"?",
+  gate:"A 2023/24 new-build that ticks the structural boxes the leased Myllypuro options miss: the company owns its plot AND carries no debt (no rahoitusvastike), so the low €478/mo vastike is real. HRV, B energy, pitched metal roof, school 0.8 km, professional management — essentially zero renovation risk. The price is the cost: €4,523/m², the steepest in Myllypuro, and the balcony faces north-east.",
+  flags:["2023/24, own land, DEBT-FREE company — low €478/mo vastike","HRV (tulo+poisto+LTO); B energy; district heating; metal roof","Myllypuro; school 0.8 km, daycare 0.6 km, Raide-Jokeri","High €/m² (~€4,523); NE balcony aspect; 16-unit; not Hitas (free resale)"]},
+ {rank:10,score:7.0,prop:"Rihlakuja 5",addr:"Myllypuro · 190 m²",type:"Erillistalo 2005",ty:2005,price:498000,truenum:498000,truetxt:"~498k",land:"Own",landc:"moss",reno:"Mixed",renoc:"sand",vent:"Mech?",ventc:"sand",gov:"Self (2u)",govc:"sand",water:"No",waterc:"grey",school:"0.5 km",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Stone-built detached, own land, €2,621/m² — strong value. But surfaces largely original and the 12/2025 kuntotarkastus flags wet-room reno, a moisture trace, ground-slope/waterproofing. That report is the line between value buy and money pit.",
+  flags:["190 m², own land, district + floor heating","School 500 m; metro ~1 km","Two-unit self-managed company","Wet rooms + moisture items ahead; vent unconfirmed"]},
+ {rank:11,score:7.0,prop:"Mamsellimyllynkatu 13",addr:"Puu-Myllypuro · 133 m²",type:"OKT 2012",ty:2012,price:547000,truenum:671000,truetxt:"~671k",land:"Leased→2075",landc:"sand",reno:"Behind",renoc:"moss",vent:"Mech",ventc:"sea",gov:"Freehold",govc:"sea",water:"No",waterc:"grey",school:"Near",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Newest of the existing buildings, lowest reno risk — but leased at €4,327/yr to 2075. Capitalised (~€124k) the own-land-equivalent is ~€671k, priciest modern on a true-cost basis.",
+  flags:["2012, maalämpö, B energy; backs onto protected forest","Small 305 m² plot","Lease 2075 — far enough not to bite resale"]},
+ {rank:12,score:7.0,prop:"Hallainvuorentie 14 A",addr:"Myllypuro · 104 m²",type:"Paritalo 2003",ty:2003,price:448000,truenum:448000,truetxt:"~448k",land:"Leased→2062",landc:"sand",reno:"Mixed",renoc:"sand",vent:"Mech",ventc:"sand",gov:"Pro (4u)",govc:"sea",water:"No",waterc:"grey",school:"1 km ✓",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"2003 paritalo, hyvä shell, professionally managed, schools 0.6–1.2 km, district heating + ILP. But kitchen and bathrooms are largely original 2003 (renovation due in your hold), the €738/mo vastike is high, and the land is leased to 2062 (rent inside the vastike). Plus 56 m² basement on top of the 104 m² living area.",
+  flags:["Myllypuro; schools + daycares 0.6–1.2 km","104 m² living + ~56 m² basement (takkahuone, sauna)","Original 2003 kitchen/baths; mechanical vent (HRV unconfirmed)","Leased 2062; high vastike; 4-unit company, residents do upkeep"]},
+ {rank:13,score:7.0,prop:"Myllyväenkatu 10 J",addr:"Puu-Myllypuro · 140 m²",type:"Paritalo 2013",ty:2013,price:459000,truenum:459000,truetxt:"~459k",land:"Leased→2070",landc:"sand",reno:"Behind",renoc:"moss",vent:"Mech",ventc:"sand",gov:"Pro (16u)",govc:"sea",water:"No",waterc:"grey",school:"Near",eastern:1,nw:0,wc:"2+",ensuite:"?",
+  gate:"Modern 2013 paritalo, biggest of the Myllypuro modern set (140 m²), professionally managed, 10-yr builder inspections already done. Two structural caveats: it's HITAS (Helsinki caps the resale price — a real drag on a 10–20 yr hold), and it's on leased land to 2070 with a €1,001/mo vastike (ground rent is inside that). Read what the vastike actually buys.",
+  flags:["2013, hyvä, B energy, district + floor heating; two-storey","Professional mgmt; 10-yr rakennuttaja inspections done 2023–24","HITAS — resale price-capped by the city","Leased 2070; very high €1,001/mo vastike; mech vent (HRV unconfirmed)"]},
+ {rank:14,score:7.0,prop:"Paasitie 9 C",addr:"Tammisalo · 78 m²",type:"Rivitalo 1960",ty:1960,price:375000,truenum:380000,truetxt:"~380k",land:"Own",landc:"moss",reno:"Behind",renoc:"moss",vent:"Gravity",ventc:"sand",gov:"Pro (35u)",govc:"sea",water:"Near",waterc:"grey",school:"Tammisalo",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Own land, professionally managed, big-ticket work done. But valesokkeli moisture corrections run across the company unit by unit — confirm whether C is implicated. Reno-loan jyvitys ~€5.4k.",
+  flags:["Own land; isot remontit done; park-bordering end unit","78 m² is small for a growing family","Gravity vent; D energy; valesokkeli risk","High €/m² (~€4,800)"]},
+ {rank:15,score:6.5,prop:"Pyötsaarenkuja 4",addr:"Vartiokylä · 116 m²",type:"Paritalo 1985",ty:1985,price:508000,truenum:508000,truetxt:"~508k",land:"Own",landc:"moss",reno:"Behind",renoc:"moss",vent:"Exhaust",ventc:"sand",gov:"Self (2u)",govc:"sand",water:"Near",waterc:"grey",school:"50 m kindergarten",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Best school proximity — daycare 50 m, schools 800–900 m, new Vartiokylä school 2028. Recently renovated. But the garage→bedroom conversion has no permitted käyttötarkoituksen muutos — confirm before it's a financing/resale snag.",
+  flags:["Own land; recent big works; kuntotarkastus 2/2026","Electric heat (ILP); D energy; high €/m²","Two-unit self-managed","Unpermitted garage→bedroom conversion (the gate)"]},
+ {rank:16,score:6.5,prop:"Marjaniementie 22 A",addr:"Marjaniemi · 132 m²*",type:"Paritalo 1974",ty:1974,price:465000,truenum:465000,truetxt:"~465k",land:"Own",landc:"moss",reno:"Mixed",renoc:"sand",vent:"Exhaust",ventc:"sand",gov:"Self (4u)",govc:"sand",water:"Near",waterc:"grey",school:"Marjaniemi",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Headline 166 m² overstates it — huoneistoala 132 m², so real €/m² ~€3,500. Four-unit self-managed company with split old/new liability concentrates capex/governance risk.",
+  flags:["Own land 1,209 m²; 2-car garage in price","Exhaust vent only","2022 plumbing was relining, not full renewal","Pientalo build expected across the street"]},
+ {rank:17,score:6.5,prop:"Lappeentie 34",addr:"Vartiokylä · 154 m²",type:"OKT 1949/88/11",ty:1949,price:465000,truenum:465000,truetxt:"~465k",land:"Own (freehold)",landc:"moss",reno:"Mixed",renoc:"sand",vent:"Gravity",ventc:"sand",gov:"Freehold",govc:"sea",water:"No",waterc:"grey",school:"Vartiokylä",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Freehold, 154 m² on 1,208 m² with extension rights, €3,029/m². Pipes 2024, roof 2014, kuntotarkastus 11/2025. But a 1949 core expanded twice, tyydyttävä, electric heat + gravity vent + E energy — more work and higher running cost. The 11/2025 report on the core is the gate.",
+  flags:["Freehold; 154 m² + 241 m² rakennusoikeus","Pipes 2024, roof 2014; kuntotarkastus 11/2025","Electric central heat; E energy; ~€210/mo","Gravity vent; 1949 core under extensions"]},
+ {rank:18,score:6.5,prop:"Arhotie 8 a",addr:"Vartiokylä · 94 m²",type:"OKT 1956",ty:1956,price:369000,truenum:369000,truetxt:"~369k",land:"Own (freehold)",landc:"moss",reno:"Mixed",renoc:"sand",vent:"Gravity",ventc:"sand",gov:"Freehold",govc:"sea",water:"No",waterc:"grey",school:"Near",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Freehold with maalämpö (2019) and roof (2020) done, fresh kuntotarkastus 6/2026 to read. But a rintamamiestalo with 2004 surface-run plumbing and a satisfactory rating — the ongoing-need profile typical of the type.",
+  flags:["Freehold; ground-source heat","Small 500 m² plot; SR-3","2004 pintaveto plumbing; satisfactory"]},
+ {rank:19,score:6.5,prop:"Humikkalantie 58 B 1",addr:"Mellunkylä · 106 m²",type:"Paritalo 2021",ty:2021,price:542000,truenum:542000,truetxt:"~542k",land:"Own",landc:"moss",reno:"Behind",renoc:"moss",vent:"HRV",ventc:"moss",gov:"Freehold (6u)",govc:"sea",water:"No",waterc:"grey",school:"⚠ Mellunkylä",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Modern and clean on the framework — 2021, own land, HRV, air-water heat pump, B energy, very low running cost. The real gate is location: Mellunkylä/Kontula sits OUTSIDE your named peninsulas, so check it against Lumi's catchment. Also note the 156 m² headline is only 106 m² living + 50 m² garage/tech.",
+  flags:["2021 stone build; HRV; heat pump; €105/mo heating","Own land, 6-part määräosa (hallinnanjako)","106 m² living (156 incl. garage/tech)","Off your peninsula list — Mellunmäki metro 1.5 km"]},
+ {rank:20,score:6.5,prop:"Pyörökiventie 23 B",addr:"Tammisalo · 199 m²",type:"Rivitalo 1971",ty:1971,price:599000,truenum:620000,truetxt:"599k + works",land:"Own",landc:"moss",reno:"Mixed",renoc:"sand",vent:"Exhaust",ventc:"sand",gov:"Self (4u)",govc:"sand",water:"Near",waterc:"grey",school:"Tammisalo",eastern:1,nw:0,wc:"2+",ensuite:"No",
+  gate:"Big (199 m²) coastal-Tammisalo end unit on own land, interior renovated 2014–17 and windows 2024. But it's a 1971 flat-felt-roof house with electric heat + D energy (16,700 kWh/yr), no HRV (the company expects you to add it), and the 2023 kunnossapitoselvitys lists facade + insulation, balcony concrete and roof renewal ahead — a 4-unit self-managed company where each owner carries their own structure.",
+  flags:["199 m², own land, Tammisalo coastal; two-storey zone separation","Interior pipes/electrics/wet rooms 2014; windows 2024","Flat felt roof on 1971 + electric heat + D energy; no HRV","Facade/balcony/roof works ahead; 4-unit self-managed (per-unit liability)"]},
+ {rank:21,score:6.5,prop:"Myllyväenkatu 12 G",addr:"Puu-Myllypuro · 118 m²",type:"Paritalo 2014",ty:2014,price:437000,truenum:437000,truetxt:"~437k",land:"Leased→2070",landc:"sand",reno:"Behind",renoc:"moss",vent:"Mech",ventc:"sand",gov:"Pro (22u)",govc:"sea",water:"No",waterc:"grey",school:"Near",eastern:1,nw:0,wc:"2+",ensuite:"?",
+  gate:"Sister company to Myllyväenkatu 10 J — 2014, hyvä, professionally managed (Granlund), 3-level läpitalo. Same two drags: HITAS resale cap and leased land to 2070 with a high €775/mo vastike. Smaller and pricier per m² than 10 J (€3,719/m²), a €100k company loan limit was authorised in 2025, and some rotten support posts are being repaired — worth checking on a 2014 build.",
+  flags:["2014, hyvä, B energy, district heat; two-storey","Professional mgmt (Granlund)","HITAS — resale price-capped; leased 2070; €775/mo vastike","€100k company loan authorised 2025; some post rot being repaired"]},
+ {rank:22,score:6.0,prop:"Rautapaidantie 8 C",addr:"Vartiokylä (edge) · 122 m²",type:"Paritalo 1989",ty:1989,price:359000,truenum:367000,truetxt:"~367k",land:"Own",landc:"moss",reno:"Behind",renoc:"moss",vent:"Exhaust",ventc:"sand",gov:"Self (4u)",govc:"sand",water:"No",waterc:"grey",school:"⚠ 2 km",eastern:1,nw:0,wc:"2+",ensuite:"No",
+  gate:"Cheapest own-land two-storey in the set (€2,931/m²), hyvä, well-maintained, rinnetontti zone separation. But it runs on direct electric heat (suorasähkö, E energy, 12,000 kWh/yr), exhaust-only vent, a cement-fibre roof, and a 4-unit self-managed company. Radon was elevated and corrected in THIS unit (C) in 2022–23, and the lower school is 2 km — weaker catchment than the Marjaniemi/Vartiokylä-core options.",
+  flags:["Own land; cheap €2,931/m²; two-storey zone separation; well-maintained","Direct electric heat + E energy — high running cost","Exhaust vent; cement-fibre roof; 4-unit self-managed","Radon corrected in this unit 2022–23; lower school 2 km"]},
+ {rank:23,score:6.0,prop:"Virvatulentie 6 A 10",addr:"Marjaniemi · 151 m²",type:"Rivitalo 2000",ty:2000,price:515000,truenum:515000,truetxt:"~515k",land:"Leased→2096",landc:"sand",reno:"Mixed",renoc:"sand",vent:"Exhaust",ventc:"sand",gov:"As Oy",govc:"sea",water:"Walk 15min",waterc:"grey",school:"Marjaniemi",eastern:1,nw:0,wc:"2+",ensuite:"No",
+  gate:"Striking, character-rich Marjaniemi end unit — 151 m², a 7 m glass-roofed living room, schools and the beach nearby, lease long to 2096. But the running cost is the problem: a €1,193/mo total vastike (incl. korjausvastike) is almost a second mortgage, it's HITAS (resale capped), the felt mono-pitch roof is due for renewal in 2028, vent is exhaust-only, and the unit is currently tenanted (3-month notice).",
+  flags:["Marjaniemi; 151 m²; unique 7 m glass-roof living room; two-storey","Lease to 2096 (long, fine); schools + beach near","HITAS; very high €1,193/mo vastike; felt roof renewal 2028","Exhaust vent; D energy; currently rented (3-mo termination)"]},
+ {rank:24,score:6.0,prop:"Harbonkatu 7 C",addr:"Ramsinranta · 127 m²",type:"Erillistalo 2004",ty:2004,price:626000,truenum:626000,truetxt:"~626k",land:"Own",landc:"moss",reno:"Behind",renoc:"moss",vent:"Mech",ventc:"sand",gov:"Pro (6u)",govc:"sea",water:"Own shore",waterc:"moss",school:"\u26a0 Vuosaari",eastern:1,nw:1,wc:"2+",ensuite:"No",
+  gate:"Beautifully sorted — fully renovated 2017, B energy, seam-metal roof, own land, district heat, professional management, and the best water of anything in the set: private shore right, company beach sauna, jetty and boat slips. But it sits in Ramsinranta (Vuosaari), outside your peninsulas, so it breaks Lumi\u2019s catchment; it\u2019s only 2 bedrooms + an office; and at €4,929/m² it\u2019s the priciest per square metre here. The area also carries radon (mitigation system in place).",
+  flags:["Fully renovated 2017; B energy; seam-metal roof; district heat; own land","Best water in the set — private shore, beach sauna, jetty, boat slips","Off your peninsulas (Vuosaari/Ramsinranta) — breaks the school anchor","Only 2 beds + office; €4,929/m² (highest here); radon area (mitigated)"]},
+ {rank:25,score:5.5,prop:"Rantakiventie 10 E",addr:"Vuosaari · 115 m²",type:"Rivitalo 1977",ty:1977,price:399000,truenum:399000,truetxt:"~399k",land:"Own",landc:"moss",reno:"Mixed?",renoc:"sand",vent:"n/a",ventc:"grey",gov:"As Oy",govc:"sea",water:"Sea view",waterc:"moss",school:"⚠ Vuosaari",eastern:1,nw:0,wc:"?",ensuite:"?",
+  gate:"Sea-view rivitalo on own land with no company debt — but Vuosaari (Vartiolahti) is outside your peninsula list and breaks the school anchor, and the listing is thin (no condition report, ventilation, or renovation history given). Treat the sea view as the only confirmed plus until you see the documents.",
+  flags:["Sea view; own land; debt-free company; district heating","Off-anchor — Keski-Vuosaari, not your target areas","1977 stock; flat-roof era — confirm roof/structure","Sparse listing — condition/vent/renos undisclosed"]},
+];
+const tb=document.getElementById('tb');let sortKey='score',sortDir=-1;
+function chip(t,c){return '<span class="chip c-'+c+'">'+t+'</span>';}
+function wcChip(v){return chip(v,v==='2+'?'moss':'grey');}
+function enChip(v){return chip(v,v==='Yes'?'moss':'grey');}
+function render(){tb.innerHTML='';DATA.forEach(d=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML='<td class="col-prop"><div class="pname">#'+d.rank+'</div></td>'+
+    '<td><div class="score"><b class="mono">'+d.score.toFixed(1)+'</b><div class="meter"><i style="width:'+(d.score*10)+'%"></i></div></div></td>'+
+    '<td><span class="pname">'+d.prop+(d.nw?'<span class="nw">NEW</span>':'')+'</span><span class="paddr">'+d.addr+(d.eastern?'':' \u00b7 \u26a0 out of area')+'</span></td>'+
+    '<td>'+d.type+'</td><td class="mono">\u20ac'+(d.price/1000).toFixed(0)+'k</td><td class="mono">'+d.truetxt+'</td>'+
+    '<td>'+chip(d.land,d.landc)+'</td><td>'+chip(d.reno,d.renoc)+'</td><td>'+chip(d.vent,d.ventc)+'</td>'+
+    '<td>'+chip(d.gov,d.govc)+'</td><td>'+chip(d.water,d.waterc)+'</td><td>'+d.school+'</td>'+'<td>'+wcChip(d.wc)+'</td>'+'<td>'+enChip(d.ensuite)+'</td>';
+  const det=document.createElement('tr');det.className='detail';
+  det.innerHTML='<td colspan="14"><div class="drawer"><div class="gate"><h4>The gate</h4>'+d.gate+'</div><h4>Flags</h4><ul>'+d.flags.map(f=>'<li>'+f+'</li>').join('')+'</ul></div></td>';
+  tr.addEventListener('click',()=>det.classList.toggle('open'));
+  tb.appendChild(tr);tb.appendChild(det);});}
+function sortBy(key,num){if(sortKey===key){sortDir*=-1;}else{sortKey=key;sortDir=num?-1:1;}
+  DATA.sort((a,b)=>{let va=a[key],vb=b[key];if(num){return(va-vb)*sortDir;}return String(va).localeCompare(String(vb))*sortDir;});
+  document.querySelectorAll('thead th').forEach(th=>{th.classList.toggle('active',th.dataset.k===key);const ar=th.querySelector('.arr');if(ar)ar.textContent=th.dataset.k===key?(sortDir<0?'\u25bc':'\u25b2'):'\u25b2';});render();}
+document.querySelectorAll('thead th').forEach(th=>th.addEventListener('click',()=>sortBy(th.dataset.k,th.dataset.num==='1')));
+render();
+</script>
+</body>
+</html>
