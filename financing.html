@@ -18,6 +18,20 @@
   .preset{display:flex;gap:6px;margin-top:7px}
   .preset button{flex:1;border:1px solid var(--line);background:#fff;color:var(--sea);font-size:11px;font-weight:700;padding:5px;border-radius:5px;cursor:pointer}
   .assump{font-size:11px;color:var(--muted)}
+  .picker{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 14px}
+  .picker-head{display:flex;align-items:center;justify-content:space-between;margin:0 0 10px;gap:8px}
+  .picker-head h3{margin:0;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--sea);white-space:nowrap}
+  .picker-actions{display:flex;gap:6px}
+  .picker-actions button{border:1px solid var(--line);background:#fff;color:var(--sea);font-size:11px;font-weight:700;padding:4px 8px;border-radius:5px;cursor:pointer}
+  .picker-grid{display:flex;flex-wrap:wrap;gap:6px}
+  .prop-chip{display:flex;align-items:center;gap:6px;padding:5px 9px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer;font-size:12px;user-select:none;transition:border-color .1s,background .1s}
+  .prop-chip:hover{border-color:var(--sea)}
+  .prop-chip input[type=checkbox]{margin:0;accent-color:var(--sea);cursor:pointer;flex-shrink:0}
+  .prop-chip.checked{border-color:var(--sea);background:#EEF6F6}
+  .prop-chip .chip-rank{font-size:10px;color:var(--muted);min-width:14px}
+  .prop-chip .chip-name{font-weight:600;color:var(--ink)}
+  .prop-chip .chip-type{color:var(--muted);font-size:11px}
+  .prop-chip .chip-price{font-family:ui-monospace,monospace;color:var(--sea-deep);font-size:11px;font-weight:600}
   .cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:0 0 18px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
   .card.lead{border:1.5px solid var(--sea)}
@@ -56,6 +70,18 @@
   <nav class="nav"><a href="index.html">Overview</a><a href="shortlist.html">Shortlist</a><a href="scorer.html">Scorer</a><a class="on" href="financing.html">Financing</a></nav>
   <p class="sub">Each rolls your current-apartment negative equity into a new mortgage and leans on parental collateral above 85% LTV. <b>Bridge / double-carry is now a line item</b> — a now-available purchase carries months of two housing costs; a 2027-completion build doesn't. Leased-land collateral is haircut. Adjust the assumptions; the ranking shifts when you stress the rate.</p>
 
+  <div class="picker" id="picker">
+    <div class="picker-head">
+      <h3>Properties to compare</h3>
+      <div class="picker-actions">
+        <button id="pickAll">All</button>
+        <button id="pickNone">None</button>
+        <button id="pickDefault">Default</button>
+      </div>
+    </div>
+    <div class="picker-grid" id="pickerGrid"></div>
+  </div>
+
   <div class="controls">
     <div class="ctl"><label>Interest rate (all-in)</label>
       <div class="rowflex"><input type="range" id="rate" min="1" max="7" step="0.1" value="3.0"><span class="rate-val mono" id="rateVal">3.0%</span></div>
@@ -86,12 +112,51 @@ import { loadData, annuity, transferTax, collateralGap, collateralValue, bridgeC
 
 const data = await loadData();
 const A = data.assumptions;
-const PROPS = data.properties.filter(p => p.financing);
+const ALL_PROPS = data.properties;
+const DEFAULT_IDS = new Set(ALL_PROPS.filter(p => p.financing).map(p => p.id));
+let selectedIds = new Set(DEFAULT_IDS);
 
 const el = id => document.getElementById(id);
 let term = 30;
 el('sale').value = A.default_sale_price;
 el('income').value = A.default_income_net_mo;
+
+function renderPicker() {
+  el('pickerGrid').innerHTML = ALL_PROPS.map(p => {
+    const checked = selectedIds.has(p.id);
+    return `<label class="prop-chip${checked ? ' checked' : ''}" data-id="${p.id}">
+      <input type="checkbox" value="${p.id}"${checked ? ' checked' : ''}>
+      <span class="chip-rank">#${p.rank}</span>
+      <span class="chip-name">${p.name}</span>
+      <span class="chip-type">${p.type}</span>
+      <span class="chip-price">€${(p.headline/1000).toFixed(0)}k</span>
+    </label>`;
+  }).join('');
+  el('pickerGrid').querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', e => {
+      const id = e.target.value;
+      const label = e.target.closest('.prop-chip');
+      if (e.target.checked) { selectedIds.add(id); label.classList.add('checked'); }
+      else { selectedIds.delete(id); label.classList.remove('checked'); }
+      render();
+    });
+  });
+}
+
+el('pickAll').addEventListener('click', () => {
+  selectedIds = new Set(ALL_PROPS.map(p => p.id));
+  renderPicker(); render();
+});
+el('pickNone').addEventListener('click', () => {
+  selectedIds = new Set();
+  renderPicker(); render();
+});
+el('pickDefault').addEventListener('click', () => {
+  selectedIds = new Set(DEFAULT_IDS);
+  renderPicker(); render();
+});
+
+renderPicker();
 
 function negEquity(sale) { return A.old_mortgage - sale * (1 - A.sell_cost); }
 
@@ -99,7 +164,7 @@ function rowFor(p, rate, negEq, income) {
   const tax = transferTax(p, A);
   const loan = p.headline + tax + negEq;          // ground rent is a running cost, not financed
   const m = annuity(loan, rate, term);
-  const total = m + (p.running_mo || 0);
+  const total = m + (p.running_mo != null ? p.running_mo : 0);
   const gap = collateralGap(p, loan, A);
   const ltv = loan / p.headline * 100;
   const bridge = bridgeCost(p, A);
@@ -111,10 +176,17 @@ function render() {
   const sale = +el('sale').value || 0;
   const income = +el('income').value || 1;
   const negEq = negEquity(sale);
+  const PROPS = ALL_PROPS.filter(p => selectedIds.has(p.id));
 
   el('negEq').innerHTML = negEq >= 0
     ? 'Rolled-in negative equity at this sale price: <b class="mono">' + eur(negEq) + '</b> (net ' + eur(sale * (1 - A.sell_cost)) + ' against the €227,469 mortgage). This single number moves the cards more than the rate slider does in the realistic band — see the strip below.'
     : 'Positive equity carried forward as deposit: <b class="mono">' + eur(-negEq) + '</b>.';
+
+  if (PROPS.length === 0) {
+    el('cards').innerHTML = '<p style="color:var(--muted);font-size:13px">Pick at least one property above to compare.</p>';
+    el('sens').innerHTML = '';
+    return;
+  }
 
   const rows = PROPS.map(p => rowFor(p, rate, negEq, income));
   const maxTotal = Math.max(...rows.map(r => r.total), income * 0.4) * 1.05;
@@ -124,6 +196,7 @@ function render() {
   el('cards').innerHTML = rows.map(r => {
     const p = r.p, pct = r.total / income * 100, over = pct > 40;
     const leased = p.tenure === 'leased';
+    const runningMo = p.running_mo != null ? p.running_mo : 0;
     return `
     <div class="card${p.lead ? ' lead' : ''}">
       <h2>${p.url ? `<a href="${p.url}" target="_blank" rel="noopener">${p.name}</a>` : p.name}${p.badge ? `<span class="badge">${p.badge}</span>` : ''}</h2>
@@ -134,7 +207,7 @@ function render() {
         <div class="r big"><span class="k">New mortgage</span><span class="v">${eur(r.loan)}</span></div>
         <div class="r"><span class="k">LTV vs price</span><span class="v ${r.ltv > 110 ? 'warn' : ''}">${r.ltv.toFixed(0)}%</span></div>
         <div class="r"><span class="k">Mortgage / mo</span><span class="v">${eur(r.m)}</span></div>
-        <div class="r"><span class="k">+ running (est.)</span><span class="v">${eur(p.running_mo)}</span></div>
+        <div class="r"><span class="k">+ running (est.)</span><span class="v">${p.running_mo != null ? eur(p.running_mo) : '—'}</span></div>
         <div class="r big"><span class="k">Total housing / mo</span><span class="v ${over ? 'warn' : 'ok'}">${eur(r.total)}<span class="pct">${pct.toFixed(0)}% net</span></span></div>
         <div class="barwrap"><div class="bar2"><i class="${over ? 'over' : ''}" style="width:${Math.min(100, r.total / maxTotal * 100)}%"></i><span class="threshold" style="left:${threshPos}%"></span></div></div>
         <div class="r" style="margin-top:8px"><span class="k">Bridge / double-carry${r.bridge ? '' : ' — none'}</span><span class="v ${r.bridge ? 'warn' : 'ok'}">${r.bridge ? eur(r.bridge) : '€0'}</span></div>
@@ -142,8 +215,8 @@ function render() {
         <div class="barwrap"><div class="bar2"><i style="width:${Math.min(100, r.gap / maxGap * 100)}%;background:var(--sand)"></i></div></div>
         <div class="r" style="margin-top:8px"><span class="k">Gross income, &lt;500% rule (this loan only)</span><span class="v">${eur(r.grossNeed)}/yr</span></div>
       </div>
-      <div class="note">${p.run_note}</div>
-      <div class="note tim"><span class="tag ${p.timingClass || (p.available === 'now' ? 'warn' : 'good')}">${p.available === 'now' ? 'Timing' : 'Timing ✓'}</span>${p.timing}</div>
+      ${p.run_note ? `<div class="note">${p.run_note}</div>` : ''}
+      ${p.timing ? `<div class="note tim"><span class="tag ${p.timingClass || (p.available === 'now' ? 'warn' : 'good')}">${p.available === 'now' ? 'Timing' : 'Timing ✓'}</span>${p.timing}</div>` : ''}
     </div>`;
   }).join('');
 
