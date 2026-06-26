@@ -224,6 +224,14 @@
       "chips": { "land": ["Own", "moss"], "reno": ["Mixed?", "sand"], "vent": ["n/a", "grey"], "gov": ["As Oy", "sea"], "water": ["Sea view", "moss"] },
       "school_label": "\u26a0 Vuosaari", "school_status": "off",
       "gate": "Sea-view rivitalo on own land with no company debt \u2014 but Vuosaari (Vartiolahti) is outside your peninsula list and breaks the school anchor, and the listing is thin (no condition report, ventilation, or renovation history given). Treat the sea view as the only confirmed plus until you see the documents.",
-      "flags": ["Sea view; own land; debt-free company; district heating", "Off-anchor \u2014 Keski-Vuosaari, not your target areas", "1977 stock; flat-roof era \u2014 confirm roof/structure", "Sparse listing \u2014 condition/vent/renos undisclosed"] }
+      "flags": ["Sea view; own land; debt-free company; district heating", "Off-anchor \u2014 Keski-Vuosaari, not your target areas", "1977 stock; flat-roof era \u2014 confirm roof/structure", "Sparse listing \u2014 condition/vent/renos undisclosed"] },
+
+    { "id": "mantypaadentie-17c", "url": "https://asunnot.oikotie.fi/myytavat-asunnot/helsinki/24562945", "rank": 26, "score": 7.5, "name": "M\u00e4ntypaadentie 17 C", "addr": "Tammisalo \u00b7 100 m\u00b2", "type": "Rivitalo 1977", "year": 1977, "size_m2": 100,
+      "headline": 550000, "tenure": "own", "lease_end": null, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "shares", "nw": false, "wc": "?", "ensuite": "?",
+      "chips": { "land": ["Own", "moss"], "reno": ["Behind", "moss"], "vent": ["Exhaust", "sand"], "gov": ["Pro (20u)", "sea"], "water": ["Walk", "grey"] },
+      "school_label": "Tammisalo", "school_status": "in",
+      "available": "now",
+      "gate": "Own land, reno mostly behind (roof 2015, facade 2025, windows 2026), 20-unit professional management \u2014 good bones. Drag: \u20ac300/mo rahoitusvastike on top of \u20ac320 maintenance, lifting total carry to \u20ac650/mo. At \u20ac5,500/m\u00b2 for 100 m\u00b2, it\u2019s the priciest per-square-metre on the list \u2014 check what the special assessment covers and when it ends.",
+      "flags": ["Own land; Asunto Oy Gretanpuistikko, 20u, Kontu Is\u00e4nn\u00f6inti", "Reno mostly behind: roof 2015, facade 2025, windows 2026", "\u20ac300/mo rahoitusvastike \u2014 confirm term and outstanding balance", "District heat + exhaust vent; 1977 frame \u2014 check insulation and moisture"] }
   ]
 }
