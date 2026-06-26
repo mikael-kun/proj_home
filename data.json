@@ -49,7 +49,7 @@
       "headline": 488000, "tenure": "own", "lease_end": null, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "shares", "nw": false, "wc": "?", "ensuite": "?",
       "chips": { "land": ["Own", "moss"], "reno": ["Behind", "moss"], "vent": ["Exhaust", "sand"], "gov": ["Pro (7u)", "sea"], "water": ["Walk", "grey"] },
       "school_label": "Marjaniemi \u2713", "school_status": "in",
-      "financing": true, "lead": true, "badge": "Most financeable", "running_mo": 500, "run_note": "est. vastike + electric heat + insurance", "available": "now",
+      "financing": true, "lead": true, "badge": "", "running_mo": 500, "run_note": "est. vastike + electric heat + insurance", "available": "now",
       "timing": "Available now \u2014 needs a bridge or buy-before-sell. Won't wait for your 2027 window.",
       "gate": "Highest-scored and closest to the ideal profile \u2014 own land, two-storey zone separation, roof done, professional mgmt, walk-to-beach, school confirmed. Pivotal unknown: the takkahuone wall rakenneavaus. Clean \u2192 strong buy; moisture/rot in the 1989 frame \u2192 reprice or walk.",
       "flags": ["Own land; 7-unit company, professional management", "Two-storey, bedrooms both floors \u2014 the layout you want", "Roof done; \u20ac3,511/m\u00b2 fair vs Marjaniemi comps", "Electric heating; 1989 wood frame"] },
@@ -94,7 +94,7 @@
       "flags": ["Major works done 2024 (roof, windows, pipes); IVLP 2026", "Freehold; school 0.6 km, metro 0.6 km", "Gravity vent; SR-3 protection", "Heating pipes original; asbestos survey needed"] },
 
     { "id": "varjakanvalkama-16", "url": "https://asunnot.oikotie.fi/myytavat-asunnot/helsinki/24375964", "rank": 7, "score": 7.5, "name": "Varjakanvalkama 16", "addr": "Vartiokyl\u00e4 \u00b7 157 m\u00b2", "type": "Rivitalo 2002", "year": 2002, "size_m2": 157,
-      "headline": 635000, "tenure": "own", "lease_end": null, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "shares", "nw": true, "wc": "2+", "ensuite": "?",
+      "headline": 635000, "tenure": "own", "lease_end": null, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "shares", "nw": false, "wc": "2+", "ensuite": "?",
       "chips": { "land": ["Own", "moss"], "reno": ["Behind", "moss"], "vent": ["Mech", "sand"], "gov": ["Self (9u)", "sand"], "water": ["Walk", "grey"] },
       "school_label": "Vartiokyl\u00e4", "school_status": "in",
       "gate": "Strong in-area family house \u2014 Vartiokyl\u00e4, own land, 157 m\u00b2 over three levels with genuine zone separation (master down, beds up, family room), a durable tile roof, a sensible \u20ac448/mo vastike, and the marina + swimming beach a short walk away. The drags: electric heating (17,000 kWh/yr) with no energy certificate issued yet (likely D/E), a 9-unit resident-run company, \u20ac4,045/m\u00b2, and the garage is a separate \u20ac20k share. Own land leaves the door open to retrofit ground-source later.",
@@ -212,8 +212,8 @@
       "gate": "Striking, character-rich Marjaniemi end unit \u2014 151 m\u00b2, a 7 m glass-roofed living room, schools and the beach nearby, lease long to 2096. But the running cost is the problem: a \u20ac1,193/mo total vastike (incl. korjausvastike) is almost a second mortgage, it's HITAS (resale capped), the felt mono-pitch roof is due for renewal in 2028 (penalty by condition, not age), vent is exhaust-only, and the unit is currently tenanted (3-month notice).",
       "flags": ["Marjaniemi; 151 m\u00b2; unique 7 m glass-roof living room; two-storey", "Lease to 2096 (long, fine); schools + beach near", "HITAS; very high \u20ac1,193/mo vastike; felt roof renewal 2028", "Exhaust vent; D energy; currently rented (3-mo termination)"] },
 
-    { "id": "harbonkatu-7c", "url": "https://asunnot.oikotie.fi/myytavat-asunnot/helsinki/23637773", "rank": 24, "score": 6.0, "name": "Harbonkatu 7 C", "addr": "Ramsinranta \u00b7 127 m\u00b2", "type": "Erillistalo 2004", "year": 2004, "size_m2": 127,
-      "headline": 626000, "tenure": "own", "lease_end": null, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "property", "nw": true, "wc": "2+", "ensuite": "No",
+    { "id": "harbonkatu-7c", "url": null, "rank": 24, "score": 6.0, "name": "Harbonkatu 7 C", "addr": "Ramsinranta · 127 m²", "type": "Erillistalo 2004", "year": 2004, "size_m2": 127,
+      "headline": 626000, "tenure": "own", "lease_end": null, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "property", "nw": false, "wc": "2+", "ensuite": "No",
       "chips": { "land": ["Own", "moss"], "reno": ["Behind", "moss"], "vent": ["Mech", "sand"], "gov": ["Pro (6u)", "sea"], "water": ["Own shore", "moss"] },
       "school_label": "\u26a0 Vuosaari", "school_status": "off",
       "gate": "Beautifully sorted \u2014 fully renovated 2017, B energy, seam-metal roof, own land, district heat, professional management, and the best water of anything in the set: private shore right, company beach sauna, jetty and boat slips. But it sits in Ramsinranta (Vuosaari), outside your peninsulas, so it breaks Lumi's catchment; it's only 2 bedrooms + an office; and at \u20ac4,929/m\u00b2 it's the priciest per square metre here. The area also carries radon (mitigation system in place).",
