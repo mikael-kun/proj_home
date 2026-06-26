@@ -45,7 +45,7 @@
   },
 
   "properties": [
-    { "id": "stromsintie-23a", "url": https://asunnot.oikotie.fi/myytavat-asunnot/helsinki/24452682, "rank": 1, "score": 8.0, "name": "Str\u00f6msintie 23 A", "addr": "Marjaniemi \u00b7 139 m\u00b2", "type": "Paritalo 1989", "year": 1989, "size_m2": 139,
+    { "id": "stromsintie-23a", "url": "https://asunnot.oikotie.fi/myytavat-asunnot/helsinki/24452682", "rank": 1, "score": 8.0, "name": "Str\u00f6msintie 23 A", "addr": "Marjaniemi \u00b7 139 m\u00b2", "type": "Paritalo 1989", "year": 1989, "size_m2": 139,
       "headline": 488000, "tenure": "own", "lease_end": null, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "shares", "nw": false, "wc": "?", "ensuite": "?",
       "chips": { "land": ["Own", "moss"], "reno": ["Behind", "moss"], "vent": ["Exhaust", "sand"], "gov": ["Pro (7u)", "sea"], "water": ["Walk", "grey"] },
       "school_label": "Marjaniemi \u2713", "school_status": "in",
@@ -63,7 +63,7 @@
       "gate": "Lease runs to 2055 (~29 yr). Helsinki renews residential ground leases as a matter of course \u2014 so this isn't renewal risk. The open question is the rent reset at 2055 (priced off plot value \u00d7 the city's return rate, estimable now) and how a sub-20-yr remaining term reads to a buyer if you sell near the end of your hold. Ground rent \u20ac1,986/yr \u2192 ~\u20ac57k capitalised.",
       "flags": ["HRV ventilation; extensively renovated 2018\u201326; move-in ready", "Verified-measured 2020; kuntotarkastus 3/2026", "Small 475 m\u00b2 plot; C energy"] },
 
-    { "id": "kiviportintie-26", "url": https://asunnot.oikotie.fi/myytavat-asunnot/helsinki/24520879, "rank": 3, "score": 7.8, "name": "Kiviportintie 26", "addr": "Vartiokyl\u00e4 \u00b7 124 m\u00b2", "type": "OKT 2023", "year": 2023, "size_m2": 124,
+    { "id": "kiviportintie-26", "url": "https://asunnot.oikotie.fi/myytavat-asunnot/helsinki/24520879", "rank": 3, "score": 7.8, "name": "Kiviportintie 26", "addr": "Vartiokyl\u00e4 \u00b7 124 m\u00b2", "type": "OKT 2023", "year": 2023, "size_m2": 124,
       "headline": 595000, "tenure": "hallinnanjako", "lease_end": null, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "property", "nw": false, "wc": "?", "ensuite": "?",
       "chips": { "land": ["Own", "moss"], "reno": ["Behind", "moss"], "vent": ["HRV", "moss"], "gov": ["Freehold", "sea"], "water": ["No", "grey"] },
       "school_label": "0.4 km", "school_status": "in",
