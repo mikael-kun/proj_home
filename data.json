@@ -232,6 +232,14 @@
       "school_label": "Tammisalo", "school_status": "in",
       "available": "now",
       "gate": "Own land, reno mostly behind (roof 2015, facade 2025, windows 2026), 20-unit professional management \u2014 good bones. Drag: \u20ac300/mo rahoitusvastike on top of \u20ac320 maintenance, lifting total carry to \u20ac650/mo. At \u20ac5,500/m\u00b2 for 100 m\u00b2, it\u2019s the priciest per-square-metre on the list \u2014 check what the special assessment covers and when it ends.",
-      "flags": ["Own land; Asunto Oy Gretanpuistikko, 20u, Kontu Is\u00e4nn\u00f6inti", "Reno mostly behind: roof 2015, facade 2025, windows 2026", "\u20ac300/mo rahoitusvastike \u2014 confirm term and outstanding balance", "District heat + exhaust vent; 1977 frame \u2014 check insulation and moisture"] }
+      "flags": ["Own land; Asunto Oy Gretanpuistikko, 20u, Kontu Is\u00e4nn\u00f6inti", "Reno mostly behind: roof 2015, facade 2025, windows 2026", "\u20ac300/mo rahoitusvastike \u2014 confirm term and outstanding balance", "District heat + exhaust vent; 1977 frame \u2014 check insulation and moisture"] },
+
+    { "id": "sopulirinne-4b", "url": "https://asunnot.oikotie.fi/myytavat-asunnot/helsinki/24562315", "rank": 27, "score": 6.5, "name": "Sopulirinne 4 B", "addr": "Herttoniemi \u00b7 134.5 m\u00b2", "type": "Rivitalo 2003", "year": 2003, "size_m2": 134,
+      "headline": 450000, "tenure": "leased", "lease_end": 2065, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "shares", "nw": false, "wc": "2+", "ensuite": "?",
+      "chips": { "land": ["Leased\u21922065", "sand"], "reno": ["Behind", "moss"], "vent": ["Exhaust", "sand"], "gov": ["Pro (10u)", "sea"], "water": ["No", "grey"] },
+      "school_label": "Herttoniemi \u2713", "school_status": "in",
+      "available": "now",
+      "gate": "2003 build with reno mostly behind and professional management \u2014 good posture at \u20ac3,345/m\u00b2. The drag is leased land to 2065: city resets the \u20ac25,000/yr ground rent at renewal, and banks haircut collateral on leased plots. Ground rent is folded into the \u20ac672.50/mo vastike so it's a running cost, not capitalised here \u2014 but it's real carry. Check the lease renewal terms before committing.",
+      "flags": ["Leased land (City of Helsinki) to 2065 \u2014 city rent reset at renewal", "2003 build; reno behind: radon mitigation, roof coating, drainage 2024\u201325", "10u, professional management (Is\u00e4nn\u00f6inti Koskinen); district heat + exhaust", "2 bathrooms; 3-storey; \u20ac672.50/mo vastike includes ground rent"] }
   ]
 }
