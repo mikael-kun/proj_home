@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Viewing companion — target dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#102a31;        /* deep marine */
+    --ink-2:#1a3d46;
+    --paper:#e9ede9;      /* cool pine paper */
+    --card:#fbfbf8;
+    --line:#c9d2cc;
+    --text:#16242a;
+    --muted:#5d6f6c;
+    --amber:#bd6727;      /* leverage / flag */
+    --amber-soft:#f2e2cf;
+    --pine:#2f6b4f;       /* positive */
+    --pine-soft:#dde9e1;
+    --brick:#a23c2c;      /* high risk */
+    --brick-soft:#f0d9d2;
+    --sun:#caa23a;        /* medium risk */
+    --r:14px;
+    --shadow:0 1px 0 rgba(16,42,49,.04), 0 6px 22px -14px rgba(16,42,49,.4);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--paper);color:var(--text);
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:15px;line-height:1.5;letter-spacing:-.005em;
+    padding-bottom:64px;
+  }
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  .disp{font-family:"Space Grotesk",system-ui,sans-serif}
+  a{color:inherit}
+
+  /* ---------- Cockpit (signature element) ---------- */
+  .cockpit{
+    position:sticky;top:0;z-index:30;
+    background:var(--ink);color:#eef4f1;
+    padding:12px 16px calc(12px + env(safe-area-inset-bottom,0)) 16px;
+    box-shadow:0 8px 24px -16px rgba(0,0,0,.7);
+  }
+  .cockpit .eyebrow{font-family:"Space Grotesk";font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7fa79c}
+  .cockpit h1{font-family:"Space Grotesk";font-weight:600;font-size:17px;margin:1px 0 0;line-height:1.15}
+  .cockpit h1 small{font-weight:400;color:#9cbcb2;font-size:12.5px}
+  .cockrow{display:flex;align-items:flex-end;gap:14px;margin-top:9px;flex-wrap:wrap}
+  .askbig{font-family:"IBM Plex Mono";font-weight:600;font-size:25px;line-height:1;color:#fff}
+  .askbig .u{font-size:12px;color:#9cbcb2;font-weight:500}
+  .verdict{font-size:11.5px;color:#f0c9a6;background:rgba(189,103,39,.22);border:1px solid rgba(189,103,39,.5);
+           padding:3px 8px;border-radius:999px;white-space:nowrap}
+  /* gauge */
+  .gauge{margin-top:11px;position:relative;height:46px}
+  .track{position:absolute;left:0;right:0;top:20px;height:6px;border-radius:6px;background:#274b53}
+  .fairband{position:absolute;top:18px;height:10px;border-radius:5px;background:var(--pine);opacity:.9}
+  .walk{position:absolute;top:13px;height:20px;width:2px;background:#e8b4a3}
+  .mk{position:absolute;top:0;transform:translateX(-50%);text-align:center;font-family:"IBM Plex Mono";font-size:9.5px;color:#bcd2ca;white-space:nowrap}
+  .mk .dot{display:block;width:9px;height:9px;border-radius:50%;margin:14px auto 0;border:2px solid var(--ink)}
+  .mk.ask{color:#fff}
+  .mk.ask .dot{background:var(--amber);width:13px;height:13px;margin-top:12px}
+  .mk.anchor .dot{background:#bcd2ca}
+  .mk.walk-lab{color:#e8b4a3}
+  .legend{display:flex;gap:12px;margin-top:4px;font-size:10px;color:#8fb0a6;flex-wrap:wrap}
+  .legend i{font-style:normal}
+  .legend b{color:#bcd2ca;font-weight:500}
+
+  /* ---------- section nav chips ---------- */
+  nav.chips{position:sticky;top:0;z-index:20;background:var(--paper);
+    display:flex;gap:7px;overflow-x:auto;padding:9px 12px;border-bottom:1px solid var(--line);
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  nav.chips::-webkit-scrollbar{display:none}
+  nav.chips a{flex:0 0 auto;font-family:"Space Grotesk";font-size:12px;font-weight:500;
+    text-decoration:none;color:var(--ink-2);background:var(--card);border:1px solid var(--line);
+    padding:6px 11px;border-radius:999px}
+  nav.chips a:active{background:var(--ink);color:#fff}
+
+  main{max-width:760px;margin:0 auto;padding:16px 14px 0}
+
+  /* ---------- accordion sections ---------- */
+  section{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden;scroll-margin-top:118px}
+  .head{display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;
+    background:none;border:0;padding:15px 16px;font:inherit;color:inherit}
+  .head .num{font-family:"IBM Plex Mono";font-size:11px;color:var(--amber);font-weight:600;letter-spacing:.05em}
+  .head h2{font-family:"Space Grotesk";font-weight:600;font-size:15.5px;margin:0;flex:1}
+  .head .chev{transition:transform .22s ease;color:var(--muted);flex:0 0 auto}
+  section[open] .chev{transform:rotate(90deg)}
+  .body{padding:0 16px 16px}
+  details > summary{list-style:none}
+  details > summary::-webkit-details-marker{display:none}
+
+  p{margin:0 0 10px}
+  .note{font-size:12.5px;color:var(--muted)}
+
+  /* facts grid */
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .facts div{background:var(--card);padding:9px 11px}
+  .facts dt{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  .facts dd{margin:0;font-size:13.5px;font-weight:500}
+  .facts dd.mono{font-size:13px}
+
+  /* scorecard */
+  .score{display:flex;flex-direction:column;gap:0}
+  .score .row{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line)}
+  .score .row:last-child{border-bottom:0}
+  .badge{flex:0 0 auto;width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:13px;margin-top:1px}
+  .b-yes{background:var(--pine-soft)}.b-warn{background:#f5eccf}.b-no{background:var(--brick-soft)}.b-neu{background:#e4e9e6}
+  .score .k{font-weight:600;font-size:13.5px}
+  .score .v{font-size:12.5px;color:var(--muted)}
+
+  /* price table */
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:right;padding:7px 6px;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-family:"Space Grotesk";font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  td.mono{font-family:"IBM Plex Mono"}
+  tr.now td{background:var(--amber-soft);font-weight:600}
+  tr.slow td{color:var(--brick)}
+  .callout{margin-top:11px;background:var(--pine-soft);border-left:3px solid var(--pine);
+    padding:10px 12px;border-radius:0 8px 8px 0;font-size:13px}
+  .callout.amber{background:var(--amber-soft);border-left-color:var(--amber)}
+
+  /* leverage cards */
+  .lev{display:flex;flex-direction:column;gap:10px}
+  .lcard{border:1px solid var(--line);border-radius:11px;padding:11px 12px}
+  .lcard .tier{display:inline-block;font-family:"Space Grotesk";font-size:10px;font-weight:600;letter-spacing:.06em;
+    text-transform:uppercase;padding:2px 7px;border-radius:6px;margin-bottom:6px}
+  .t1{background:var(--amber);color:#fff}.t2{background:#e4e9e6;color:var(--ink-2)}
+  .ts{background:var(--pine);color:#fff}.tc{background:#e9ddd2;color:#7a4a23}
+  .lcard h3{font-family:"Space Grotesk";font-size:14px;margin:0 0 3px}
+  .lcard p{font-size:13px;margin:0;color:#33433f}
+
+  /* checklist / questions */
+  ul.check{list-style:none;margin:0;padding:0}
+  ul.check li{display:flex;gap:11px;align-items:flex-start;padding:11px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+  ul.check li:last-child{border-bottom:0}
+  .box{flex:0 0 auto;width:22px;height:22px;border:2px solid var(--ink-2);border-radius:6px;margin-top:1px;
+    display:grid;place-items:center;transition:background .12s}
+  .box svg{opacity:0;transition:opacity .12s}
+  li.done .box{background:var(--pine);border-color:var(--pine)}
+  li.done .box svg{opacity:1}
+  li.done .ltxt{color:var(--muted);text-decoration:line-through}
+  .ltxt{font-size:13.5px}
+  .ltxt small{display:block;color:var(--muted);font-size:11.5px;text-decoration:none;margin-top:2px}
+  li.done .ltxt small{color:#9aa8a3}
+
+  .tools{display:flex;justify-content:space-between;align-items:center;margin:2px 0 10px}
+  .tools .prog{font-family:"IBM Plex Mono";font-size:12px;color:var(--muted)}
+  .reset{font-family:"Space Grotesk";font-size:11.5px;background:none;border:1px solid var(--line);
+    color:var(--muted);padding:5px 10px;border-radius:8px;cursor:pointer}
+
+  textarea{width:100%;min-height:96px;border:1px solid var(--line);border-radius:10px;padding:11px;
+    font:inherit;font-size:13.5px;resize:vertical;background:#fff;color:var(--text)}
+  .saved{font-size:11px;color:var(--pine);font-family:"Space Grotesk";opacity:0;transition:opacity .3s}
+  .saved.show{opacity:1}
+
+  .offer{display:flex;gap:9px;flex-wrap:wrap}
+  .ostep{flex:1 1 140px;border:1px solid var(--line);border-radius:11px;padding:11px 12px;background:#fff}
+  .ostep .lab{font-family:"Space Grotesk";font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .ostep .val{font-family:"IBM Plex Mono";font-weight:600;font-size:17px;margin-top:3px}
+  .ostep.anchor .val{color:var(--ink)}
+  .ostep.settle .val{color:var(--pine)}
+  .ostep.walk .val{color:var(--brick)}
+
+  footer{max-width:760px;margin:6px auto 0;padding:4px 16px 30px;color:var(--muted);font-size:11px}
+
+  @media (max-width:430px){
+    .facts{grid-template-columns:1fr}
+    .askbig{font-size:22px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media print{
+    .cockpit,nav.chips{position:static;box-shadow:none}
+    section{break-inside:avoid;box-shadow:none}
+    .head .chev{display:none}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== COCKPIT ===== -->
+<header class="cockpit">
+  <div class="eyebrow">Viewing dossier · Tammisalo</div>
+  <h1 id="ttl">Mäntypaadentie 17 C <small>· As Oy Gretanpuistikko</small></h1>
+  <div class="cockrow">
+    <div class="askbig">550 000<span class="u"> € · 5 500 €/m²</span></div>
+    <div class="verdict" id="verdict">≈12–18% over fair</div>
+  </div>
+  <div class="gauge" aria-label="Price gauge: ask versus your anchor, fair band and walk-away line">
+    <div class="track"></div>
+    <!-- range 430k–560k (span 130) -->
+    <div class="fairband" style="left:30.8%;width:15.4%"></div>
+    <div class="walk" style="left:53.8%"></div>
+    <div class="mk anchor" style="left:19.2%"><span>anchor<br>450–460</span><span class="dot"></span></div>
+    <div class="mk" style="left:38.5%;color:#bfe0cf"><span>fair<br>470–490</span><span class="dot" style="background:#2f6b4f"></span></div>
+    <div class="mk walk-lab" style="left:53.8%"><span>walk<br>500</span><span class="dot" style="background:#e8b4a3"></span></div>
+    <div class="mk ask" style="left:92.3%"><span>ask<br>550</span><span class="dot"></span></div>
+  </div>
+  <div class="legend">
+    <i><b>Vacant</b> · investor seller?</i>
+    <i><b>Own land</b> · 20-unit pro-managed</i>
+    <i>Showing <b>30.6</b> (13:30 / 16:30–17:30)</i>
+  </div>
+</header>
+
+<nav class="chips">
+  <a href="#snapshot">Snapshot</a>
+  <a href="#score">Score 7.2</a>
+  <a href="#price">Price</a>
+  <a href="#leverage">Leverage</a>
+  <a href="#risks">Risks</a>
+  <a href="#checklist">Inspect</a>
+  <a href="#questions">Ask Satu</a>
+  <a href="#notes">Notes</a>
+  <a href="#offer">Offer</a>
+</nav>
+
+<main>
+
+  <!-- SNAPSHOT -->
+  <section id="snapshot" open>
+    <summary class="head" role="button"><span class="num">01</span><h2>Snapshot</h2><span class="chev">▸</span></summary>
+    <div class="body">
+      <dl class="facts">
+        <div><dt>Type</dt><dd>Rivitalo · 2 storeys</dd></div>
+        <div><dt>Size</dt><dd class="mono">100 m² · yj 4h+k+s</dd></div>
+        <div><dt>Built</dt><dd class="mono">1977</dd></div>
+        <div><dt>Land</dt><dd>Own · 10 596 m²</dd></div>
+        <div><dt>Company</dt><dd class="mono">20 units / 4 bldgs</dd></div>
+        <div><dt>Company debt</dt><dd class="mono">102 251 € (low)</dd></div>
+        <div><dt>Heating</dt><dd>Kaukolämpö</dd></div>
+        <div><dt>Ventilation</dt><dd>Exhaust only ⚠︎</dd></div>
+        <div><dt>Roof</dt><dd>Flat felt · 2015</dd></div>
+        <div><dt>Energy</dt><dd class="mono">D · exp 10.10.27</dd></div>
+        <div><dt>Water</dt><dd>Shore right + dock</dd></div>
+        <div><dt>Manager</dt><dd>Kontu Isännöinti</dd></div>
+        <div><dt>Vastike total</dt><dd class="mono">650 €/kk</dd></div>
+        <div><dt>— breakdown</dt><dd class="mono">320 + 300 + 30</dd></div>
+        <div><dt>Transfer tax 1.5%</dt><dd class="mono">8 250 €</dd></div>
+        <div><dt>All-in</dt><dd class="mono">558 250 €</dd></div>
+        <div><dt>Osakkeet</dt><dd class="mono">44693–47768</dd></div>
+        <div><dt>Isänn.todistus</dt><dd class="mono">03.06.2026</dd></div>
+      </dl>
+      <p class="note" style="margin-top:11px">The “two of three” tradeoff in one line: own land + real water access + mostly-current envelope — but you give up detached autonomy (it’s a rivitalo) and the pipe renovation is still ahead.</p>
+    </div>
+  </section>
+
+  <!-- SCORECARD -->
+  <section id="score">
+    <summary class="head" role="button"><span class="num">02</span><h2>Scorecard vs your rubric · ≈7.2</h2><span class="chev">▸</span></summary>
+    <div class="body">
+      <div class="score">
+        <div class="row"><span class="badge b-yes">✓</span><div><div class="k">Own land</div><div class="v">No tonttivuokra to capitalize — strong</div></div></div>
+        <div class="row"><span class="badge b-yes">✓</span><div><div class="k">Governance</div><div class="v">20-unit, professionally managed, low debt</div></div></div>
+        <div class="row"><span class="badge b-warn">!</span><div><div class="k">Renovation status</div><div class="v">Windows 2026, facade 23–25, roof 2015 — pipes NOT done</div></div></div>
+        <div class="row"><span class="badge b-no">●</span><div><div class="k">Ventilation</div><div class="v">Exhaust-only on a freshly tightened shell</div></div></div>
+        <div class="row"><span class="badge b-yes">✓</span><div><div class="k">Water access</div><div class="v">Shore right + company dock (no poiju)</div></div></div>
+        <div class="row"><span class="badge b-warn">!</span><div><div class="k">School proximity</div><div class="v">Tammisalo on-anchor — confirm route to your school</div></div></div>
+        <div class="row"><span class="badge b-yes">✓</span><div><div class="k">2 separate WCs</div><div class="v">+0.3 bonus</div></div></div>
+        <div class="row"><span class="badge b-neu">?</span><div><div class="k">En-suite master</div><div class="v">Not indicated — your standing item, check on site</div></div></div>
+        <div class="row"><span class="badge b-neu">–</span><div><div class="k">Form factor</div><div class="v">Rivitalo, not paritalo/detached</div></div></div>
+        <div class="row"><span class="badge b-no">●</span><div><div class="k">Size</div><div class="v">100 m² vs your 120–140 target</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICE -->
+  <section id="price">
+    <summary class="head" role="button"><span class="num">03</span><h2>Price history — same-size units</h2><span class="chev">▸</span></summary>
+    <div class="body">
+      <p class="note">Eight different 100 m² units in the company over time. Asking prices; sold-vs-withdrawn unknown. Days = only liquidity proxy.</p>
+      <table>
+        <thead><tr><th>Listed</th><th>Ask</th><th>€/m²</th><th>Days</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">18.02.13</td><td class="mono">415 000</td><td class="mono">4 150</td><td class="mono">9</td></tr>
+          <tr><td class="mono">27.04.13</td><td class="mono">449 000</td><td class="mono">4 490</td><td class="mono">79</td></tr>
+          <tr><td class="mono">30.06.15</td><td class="mono">428 000</td><td class="mono">4 280</td><td class="mono">25</td></tr>
+          <tr><td class="mono">14.10.16</td><td class="mono">448 000</td><td class="mono">4 480</td><td class="mono">1</td></tr>
+          <tr><td class="mono">23.03.17</td><td class="mono">395 000</td><td class="mono">3 950</td><td class="mono">77</td></tr>
+          <tr class="slow"><td class="mono">06.07.17</td><td class="mono">475 000</td><td class="mono">4 750</td><td class="mono">145</td></tr>
+          <tr><td class="mono">10.08.24</td><td class="mono">439 000</td><td class="mono">4 390</td><td class="mono">58</td></tr>
+          <tr class="slow"><td class="mono">24.10.25</td><td class="mono">519 000</td><td class="mono">5 190</td><td class="mono">105</td></tr>
+          <tr class="now"><td class="mono">now</td><td class="mono">550 000</td><td class="mono">5 500</td><td class="mono">new</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">Absorption ceiling ≈ <b>4 500 €/m²</b>: everything at/under cleared in 1–25 days. The only two asks above ~4 700 are the two slowest in the set (145 & 105 days).</div>
+      <div class="callout amber">5 500 €/m² is the <b>highest ask the company has ever carried</b> — above even the two that demonstrably struggled. Make Satu defend it against this table.</div>
+    </div>
+  </section>
+
+  <!-- LEVERAGE -->
+  <section id="leverage">
+    <summary class="head" role="button"><span class="num">04</span><h2>Negotiation leverage</h2><span class="chev">▸</span></summary>
+    <div class="body">
+      <div class="lev">
+        <div class="lcard"><span class="tier t1">Tier 1 · price history</span><h3>Their own numbers</h3><p>Highest ask the company has ever set. Past asks above ~4 700 sat 105–145 days. Anchor straight off the table above.</p></div>
+        <div class="lcard"><span class="tier t1">Tier 1 · macro</span><h3>Buyer’s market, mid-2026</h3><p>Most Helsinki homes close at/below ask; old housing-company prices still slightly negative YoY; premiums go to modern/efficient stock — not a 1977 unit with pending pipes.</p></div>
+        <div class="lcard"><span class="tier t1">Tier 1 · moisture</span><h3>C-building damp record</h3><p>2024 C8 water-damage repair · 2022 drainage + stormwater wells at C7/C8/C10 · repeated C–D damp repairs 2005–06 · 2027 PTS to study plinth drainage. <b>This unit is C.</b></p></div>
+        <div class="lcard"><span class="tier t1">Tier 1 · pipes</span><h3>Putkiremontti ahead</h3><p>1977 originals, never renovated. Investigations 2018/2023, follow-up 2028. The big unpriced capex inside your hold — price it in.</p></div>
+        <div class="lcard"><span class="tier t2">Tier 2</span><h3>Ventilation + new windows</h3><p>Exhaust-only on a freshly tightened 2026 shell → condensation/IAQ risk, doubly relevant given the damp record.</p></div>
+        <div class="lcard"><span class="tier t2">Tier 2</span><h3>Carrying cost 650 €/kk</h3><p>High for 100 m² (300 €/kk of it is erityisvastike). Energy class D, certificate expires 10.10.2027. Capitalize into a lower price.</p></div>
+        <div class="lcard"><span class="tier ts">Seller signal</span><h3>Vacant · possible investor</h3><p>Empty-unit carrying pressure, no chain. Topcapital Oy map pin suggests a corporate owner — the 03.06.2026 todistus names them. Investor = rational on price.</p></div>
+        <div class="lcard"><span class="tier tc">Stay honest</span><h3>Don’t overplay</h3><p>This listing is <b>new</b> (DOM argument is comparative only). Company debt is low (102k) — not distressed. Own land + waterfront + fresh windows justify <i>some</i> premium over the 2024 comp. Argument is “550 is too high,” not “bad building.”</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISKS -->
+  <section id="risks">
+    <summary class="head" role="button"><span class="num">05</span><h2>Risk register</h2><span class="chev">▸</span></summary>
+    <div class="body">
+      <div class="score">
+        <div class="row"><span class="badge b-no">●</span><div><div class="k">Moisture, C/D buildings — HIGH</div><div class="v">Repeated repairs ’05–06, ’22, ’24 C8; 2027 PTS drainage study; waterfront slab. Unit is in C.</div></div></div>
+        <div class="row"><span class="badge b-no">●</span><div><div class="k">Pipes — HIGH</div><div class="v">1977 originals; investigations only; follow-up 2028; putkiremontti inside hold.</div></div></div>
+        <div class="row"><span class="badge b-warn">!</span><div><div class="k">Ventilation — MED</div><div class="v">Exhaust-only + 2026 windows → tighter shell, IAQ.</div></div></div>
+        <div class="row"><span class="badge b-warn">!</span><div><div class="k">Flat felt roof — MED</div><div class="v">Renewed 2015; next cycle ~2035–40.</div></div></div>
+        <div class="row"><span class="badge b-warn">!</span><div><div class="k">Bathrooms — MED</div><div class="v">Waterproofing 2002, units 2009, fittings 2012 — aging.</div></div></div>
+        <div class="row"><span class="badge b-warn">!</span><div><div class="k">Carrying cost — MED</div><div class="v">650 €/kk; erityisvastike trajectory unclear.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="checklist" open>
+    <summary class="head" role="button"><span class="num">06</span><h2>Inspect on site</h2><span class="chev">▸</span></summary>
+    <div class="body">
+      <div class="tools"><span class="prog" data-prog="inspect">0 / 0</span><button class="reset" data-reset="inspect">Reset</button></div>
+      <ul class="check" data-list="inspect"></ul>
+    </div>
+  </section>
+
+  <!-- QUESTIONS -->
+  <section id="questions" open>
+    <summary class="head" role="button"><span class="num">07</span><h2>Ask Satu / pull from docs</h2><span class="chev">▸</span></summary>
+    <div class="body">
+      <div class="tools"><span class="prog" data-prog="ask">0 / 0</span><button class="reset" data-reset="ask">Reset</button></div>
+      <ul class="check" data-list="ask"></ul>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" open>
+    <summary class="head" role="button"><span class="num">08</span><h2>On-site notes</h2><span class="chev">▸</span></summary>
+    <div class="body">
+      <textarea id="notepad" placeholder="What you saw, what Satu said, smells/damp, neighbour noise, the actual water view, offer reactions…"></textarea>
+      <div style="text-align:right"><span class="saved" id="savedflag">saved</span></div>
+    </div>
+  </section>
+
+  <!-- OFFER -->
+  <section id="offer">
+    <summary class="head" role="button"><span class="num">09</span><h2>Offer strategy</h2><span class="chev">▸</span></summary>
+    <div class="body">
+      <div class="offer">
+        <div class="ostep anchor"><div class="lab">Anchor</div><div class="val">450–460k</div></div>
+        <div class="ostep settle"><div class="lab">Settle target</div><div class="val">470–490k</div></div>
+        <div class="ostep walk"><div class="lab">Walk above</div><div class="val">500k</div></div>
+      </div>
+      <p style="margin-top:12px">Open at the anchor citing (1) the company’s own price table, (2) the buyer’s-market macro, (3) C-building moisture + pending pipes as named deductions. Make the broker defend 5 500 €/m² before you move. Attach a financing contingency and a document review; push for a kuntotarkastus given the damp record.</p>
+      <p class="note">Strategy note: even at a good price this is a top-of-stretch buy (550 sits at the very top of your 488–550 band) that collides with the bridge-rent / hold-D73 plan. Weigh it as a trade against holding D73, not a clean fit.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Field dossier compiled from Oikotie 24562945 · bo.fi bk4333549 · Etuovi taloyhtiö 0117785-2 · isännöitsijäntodistus 03.06.2026 · Helsinki paatokset HEL 2021-007287 · Helsinki market data mid-2026. Asking prices only — realized (KVKL) deeds would firm the anchor. Checkboxes & notes save on this device.
+</footer>
+
+<script>
+/* ---------- data: add more targets to this array later ---------- */
+const TARGETS = {
+  "mantypaadentie17c": {
+    inspect: [
+      ["Moisture first", "Base of walls, floor/skirting in ground-floor corners & against exterior walls, under sinks, sauna/wash room. Smell for damp. Ask re: the 2024 C8 repair."],
+      ["Ventilation", "Make-up air vents present? New windows with trickle vents? Stuffiness, bathroom ceiling corners."],
+      ["Pipes", "Visible runs / under-sink for age, corrosion, patches. Full pressure at two taps at once."],
+      ["Windows (2026)", "New throughout? Seals, operation, any interpane condensation."],
+      ["Flat roof / ceilings", "Top-floor ceiling staining. Ask about heavy-rain drainage."],
+      ["Floors", "Why the 2022 Pergon vinyl was laid over the oak parquet downstairs — wear or moisture?"],
+      ["Master bedroom", "En-suite present or feasible? (standing item)"],
+      ["Party walls", "How many shared walls for the C-unit; neighbour noise."],
+      ["Zone separation", "Sleeping floor genuinely isolated from living floor."],
+      ["Outdoors", "Terrace/balcony orientation & actual water view; carport; the company shore/dock."]
+    ],
+    ask: [
+      ["Owner identity", "Is the registered owner Topcapital Oy / an investor? (on the 03.06.2026 todistus)"],
+      ["This share's velkaosuus", "Company holds 102k loans — what's THIS share's debt portion vs the velaton price?"],
+      ["Erityisvastike 300 €/kk", "Loan service or capital collection? How long does it run? Poismaksu option + amount?"],
+      ["Why 5 500 €/m²?", "Justify against the company's own price history. How many viewings/offers so far?"],
+      ["Seller timeline", "Motivation, deadline, flexibility."],
+      ["PTS 2026–2030", "Full doc + any pipe-renovation hankesuunnitelma beyond the 2028 follow-up."],
+      ["Pipe kuntotutkimus 2023", "Actual condition grading + recommended action year."],
+      ["AGM 14.05.25 + EGM 16.12.24", "Scope/cost of A-building extension & balcony kaavamuutos; future levy implications."],
+      ["Tilinpäätös + talousarvio", "Loan total, reserves, planned levies."],
+      ["Energiatodistus (D)", "Heating cost history; renewal due 10.10.2027."]
+    ]
+  }
+};
+const CURRENT = "mantypaadentie17c";
+const KEY = "viewing:" + CURRENT;
+
+/* ---------- safe storage (works in a real browser / GitHub Pages; no-ops in sandbox) ---------- */
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem(KEY+":"+k)); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(KEY+":"+k, JSON.stringify(v)); }catch(e){} }
+};
+
+const CHECK_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+function renderList(name){
+  const ul = document.querySelector('[data-list="'+name+'"]');
+  const items = TARGETS[CURRENT][name];
+  const state = store.get(name) || {};
+  ul.innerHTML = "";
+  items.forEach((it,i)=>{
+    const li = document.createElement("li");
+    li.className = state[i] ? "done" : "";
+    li.setAttribute("role","checkbox");
+    li.setAttribute("aria-checked", state[i] ? "true":"false");
+    li.tabIndex = 0;
+    li.innerHTML = '<span class="box">'+CHECK_SVG+'</span><span class="ltxt"><b>'+it[0]+'</b><small>'+it[1]+'</small></span>';
+    const toggle = ()=>{
+      const s = store.get(name) || {};
+      s[i] = !s[i];
+      store.set(name,s);
+      li.classList.toggle("done", !!s[i]);
+      li.setAttribute("aria-checked", s[i]?"true":"false");
+      updateProg(name);
+    };
+    li.addEventListener("click", toggle);
+    li.addEventListener("keydown", e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); toggle(); }});
+    ul.appendChild(li);
+  });
+  updateProg(name);
+}
+function updateProg(name){
+  const items = TARGETS[CURRENT][name];
+  const state = store.get(name) || {};
+  const done = items.filter((_,i)=>state[i]).length;
+  document.querySelector('[data-prog="'+name+'"]').textContent = done+" / "+items.length;
+}
+document.querySelectorAll('[data-reset]').forEach(btn=>{
+  btn.addEventListener("click",()=>{ const n=btn.dataset.reset; store.set(n,{}); renderList(n); });
+});
+
+["inspect","ask"].forEach(renderList);
+
+/* notes */
+const pad = document.getElementById("notepad");
+const flag = document.getElementById("savedflag");
+pad.value = store.get("notes") || "";
+let t;
+pad.addEventListener("input",()=>{
+  clearTimeout(t);
+  t = setTimeout(()=>{ store.set("notes", pad.value); flag.classList.add("show"); setTimeout(()=>flag.classList.remove("show"),900); },350);
+});
+
+/* accordion via <section>/<summary> using details semantics fallback */
+document.querySelectorAll("section").forEach(sec=>{
+  const head = sec.querySelector(".head");
+  const body = sec.querySelector(".body");
+  const open = sec.hasAttribute("open");
+  if(!open) body.style.display="none";
+  head.addEventListener("click",()=>{
+    const isOpen = sec.hasAttribute("open");
+    if(isOpen){ sec.removeAttribute("open"); body.style.display="none"; }
+    else{ sec.setAttribute("open",""); body.style.display=""; }
+  });
+});
+
+/* smooth chip scroll */
+document.querySelectorAll('nav.chips a').forEach(a=>{
+  a.addEventListener("click",e=>{
+    const id=a.getAttribute("href").slice(1);
+    const sec=document.getElementById(id);
+    if(sec && !sec.hasAttribute("open")){ sec.setAttribute("open",""); sec.querySelector(".body").style.display=""; }
+  });
+});
+</script>
+</body>
+</html>
