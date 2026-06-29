@@ -275,7 +275,15 @@
   "chips": { "land": ["Own", "moss"], "reno": ["2001 gut", "sand"], "vent": ["?", "grey"], "gov": ["Freehold", "sea"], "water": ["Sea view", "moss"] },
   "school_label": "\u26a0 Kulosaari", "school_status": "off",
   "gate": "Reference bound, off-anchor, top of market \u2014 \u20ac4.0M (~7.3\u00d7 envelope), Kulosaari breaks the catchment (school veto caps rubric at 6.0). Stored at 3.0. A 414 m\u00b2 1939 villa rebuilt to the concrete frame in 2001 \u2014 thorough then, but the 2001 systems are now ~24 yr mid-life and there's no energy certificate. Notable: the only confirmed en-suite master in your set (private kph + sea-view balcony). Carry ~\u20ac1,100/mo; \u20ac9,662/m\u00b2.",
-  "flags": ["Off-anchor (Kulosaari) + \u20ac4.0M (~7.3\u00d7 envelope) \u2014 top-of-market reference", "Confirmed en-suite master (private kph + sea-view balcony) \u2014 unique in your set", "414 m\u00b2, own 1,261 m\u00b2 plot, rebuilt to frame 2001 \u2014 systems now ~24 yr mid-life", "No energy certificate; ventilation type unconfirmed; \u20ac9,662/m\u00b2"] }
+  "flags": ["Off-anchor (Kulosaari) + \u20ac4.0M (~7.3\u00d7 envelope) \u2014 top-of-market reference", "Confirmed en-suite master (private kph + sea-view balcony) \u2014 unique in your set", "414 m\u00b2, own 1,261 m\u00b2 plot, rebuilt to frame 2001 \u2014 systems now ~24 yr mid-life", "No energy certificate; ventilation type unconfirmed; \u20ac9,662/m\u00b2"] },
+
+    { "id": "sormuspolku-2", "url": "https://asunnot.oikotie.fi/myytavat-asunnot/helsinki/17289285", "rank": 10, "score": 7.3, "name": "Sormuspolku 2", "addr": "Vartiokyl\u00e4 \u00b7 220 m\u00b2", "type": "OKT 1962", "year": 1962, "size_m2": 220,
+  "headline": 675000, "tenure": "own", "lease_end": null, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "shares", "nw": false, "wc": "2+", "ensuite": "?",
+  "chips": { "land": ["Own", "moss"], "reno": ["Behind*", "moss"], "vent": ["Gravity", "sand"], "gov": ["As Oy 2u", "sand"], "water": ["No", "grey"] },
+  "school_label": "Vartiokyl\u00e4", "school_status": "in",
+  "available": "now",
+  "gate": "A genuine candidate \u2014 own 1,022 m\u00b2 garden plot in Vartiokyl\u00e4, 220 m\u00b2 over three storeys with real zone separation, broadly renovated 2017\u201324 (fa\u00e7ade, drainage, three baths, kitchen, some windows), five WCs, and the cheapest \u20ac/m\u00b2 (\u20ac3,068) of any own-land house this size you've logged. \u20ac685k all-in is within reach. What keeps it a 7 not an 8: gravity ventilation on a tightened 1962 envelope (your recurring flag), a felt mono-pitch roof, pipes relined by sukitus rather than renewed (~30-yr fix \u2014 confirm year/scope), and a 2-unit As Oy (minimal governance, though merged into one holding contains the split risk). Kunto-/homekoiratarkastus is 2017 \u2014 commission a fresh one.",
+  "flags": ["Own land; Vartiokyl\u00e4; 220 m\u00b2, 3-storey, genuine zone separation; \u20ac3,068/m\u00b2 (cheap)", "Broad reno 2017\u201324: fa\u00e7ade, salaojat, sadevesi, 3 baths, kitchen, some windows; energy C; new ILP 3/2026", "Gravity vent on tightened 1962 frame + felt mono-pitch roof \u2014 your red flags", "Pipes relined (sukitus) not renewed; 2-unit As Oy (merged); 2017 kunto-/homekoiratarkastus \u2014 refresh it"] }
 
 
 
