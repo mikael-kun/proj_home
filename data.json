@@ -307,7 +307,16 @@
   "school_label": "Vartiokyl\u00e4", "school_status": "in",
   "available": "now",
   "gate": "Off-plan twin of No. 4 B \u2014 completes ~10/2026, so you're buying drawings: lopputarkastus pending and you pick the finishes (kitchen, floors, tiling, wall colours), which is upside and a decision/budget burden. Slightly cheaper (\u20ac649k) and smaller (114 m\u00b2), and a hallinnanjako share rather than a clean kiinteistö. The 4th bedroom downstairs is a plan, not built. Vent system not stated \u2014 confirm whether it's HRV or the same exhaust-only setup as 4 B. Stored at 6.8 for unbuilt/execution risk; would rise toward 4 B once complete and inspected.",
-  "flags": ["Off-plan, valmistuu ~10/2026 \u2014 execution + finish-spec risk; lopputarkastus pending", "Own land but hallinnanjako (504 m\u00b2 share); 4th bedroom is a plan, not built", "Ventilation type not stated \u2014 confirm HRV vs exhaust-only; \u20ac5,683/m\u00b2", "\u20ac668k all-in; B-energy; air-water heat pump + ILP cooling; 2 WC"] }
+  "flags": ["Off-plan, valmistuu ~10/2026 \u2014 execution + finish-spec risk; lopputarkastus pending", "Own land but hallinnanjako (504 m\u00b2 share); 4th bedroom is a plan, not built", "Ventilation type not stated \u2014 confirm HRV vs exhaust-only; \u20ac5,683/m\u00b2", "\u20ac668k all-in; B-energy; air-water heat pump + ILP cooling; 2 WC"] },
+  
+  { "id": "lappeentie-1", "url": "https://etuovi.com/kohde/21972786", "rank": 11, "score": 7.0, "name": "Lappeentie 1", "addr": "Vartiokyl\u00e4 \u00b7 150 m\u00b2", "type": "OKT 1962 (rem. 2026)", "year": 1962, "size_m2": 150,
+  "headline": 598000, "tenure": "hallinnanjako", "lease_end": null, "ground_rent_yr": 0, "reno_share": 0, "extra_works": 0, "tax_basis": "property", "nw": false, "wc": "2+", "ensuite": "?",
+  "chips": { "land": ["Own", "moss"], "reno": ["Claimed*", "sand"], "vent": ["?", "grey"], "gov": ["Hall.jako", "sand"], "water": ["No", "grey"] },
+  "school_label": "Vartiokyl\u00e4", "school_status": "in",
+  "available": "now",
+  "gate": "Sormuspolku's profile \u2014 1962 detached, own land, Vartiokyl\u00e4 \u2014 but \u20ac77k cheaper, freshly renovated, with a heat pump instead of gravity-only, at \u20ac616k all-in (\u20ac3,987/m\u00b2). Sold as 'talo t\u00e4ysin remontoitu 2026' with putket/s\u00e4hk\u00f6t/l\u00e4mmitys done. The catch is documentation: the reno claim is entirely seller-stated \u2014 no kuntotarkastus, no remonttiseloste, no permit list, no energy certificate \u2014 so a cosmetic flip over a 1962 frame is the live risk, and the copy reads glossy. Ventilation isn't stated either (same tightened-envelope gravity risk as Sormuspolku). Hallinnanjako on the 706 m\u00b2 plot. Stored 7.0 pending paper: a clean kuntotarkastus + reno trail could push 7.5; a flip drops it to mid-6s.",
+  "flags": ["Own land; Vartiokyl\u00e4; pelti harjakatto (no felt flag); puusauna; warm garage; 3.8 kWp solar incl.", "'Fully renovated 2026' is undocumented \u2014 demand kuntotarkastus + permit/reno trail; flip risk", "Ventilation not stated \u2014 confirm HRV vs gravity on a tightened 1962 envelope", "Hallinnanjako on 706 m\u00b2 (confirm what's shared); no energy certificate; \u20ac3,987/m\u00b2"] }
+
 
 
 
